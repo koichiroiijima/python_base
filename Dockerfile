@@ -9,7 +9,12 @@ RUN set -ex \
     && \
     apk add --no-cache --update \
         python3 \
-        python3-dev
+        python3-dev \
+        lapack \
+        openblas \
+    && \
+    apk add --no-cache --update --virtual .build-deps \
+        lapack-dev
 
 RUN set -ex \
     && \
@@ -59,6 +64,8 @@ RUN set -ex \
 
 # Clean apk
 RUN set -ex \
+    && \
+    apk del --virtual .build-deps \
     && \
     apk cache clean \
     && \
