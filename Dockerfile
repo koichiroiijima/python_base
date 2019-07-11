@@ -65,7 +65,7 @@ RUN set -ex \
 # Clean apk
 RUN set -ex \
     && \
-    apk del --virtual .build-deps \
+    apk del .build-deps \
     && \
     apk cache clean \
     && \
