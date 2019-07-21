@@ -69,6 +69,8 @@ RUN set -ex \
     && \
     apk cache clean \
     && \
+    rm -rf ~/.cache/ \
+    && \
     rm -rf /var/cache/apk/*
 
 CMD ["python"]
