@@ -1,4 +1,4 @@
-FROM koichiroiijima/alpine_base:3.10-0.0.2-20190727
+FROM koichiroiijima/alpine_base:3.10-0.0.2-20190729
 
 ARG IMAGE_NAME=python_base
 ARG IMAGE_VERSION=3.7.4-alpine3.10-0.0.2
@@ -30,13 +30,9 @@ RUN set -ex \
     && \
     git clone https://github.com/pyenv/pyenv.git ~/.pyenv \
     && \
-    echo 'export PYENV_ROOT="$HOME/.pyenv"' >> ~/.bash_profile \
+    echo -e 'if command -v pyenv 1>/dev/null 2>&1; then\n  eval "$(pyenv init -)"\nfi' >> /etc/.bashrc \
     && \
-    echo 'export PATH="$PYENV_ROOT/bin:$PATH"' >> ~/.bash_profile \
-    && \
-    echo -e 'if command -v pyenv 1>/dev/null 2>&1; then\n  eval "$(pyenv init -)"\nfi' >> ~/.bash_profile \
-    && \
-    eval "$(pyenv init -)" \
+    source /etc/.bashrc \
     && \
     pyenv version
 
@@ -44,8 +40,8 @@ RUN set -ex \
     && \
     apk add --no-cache \
         libffi \
-        openssl \
-        bzip2 \
+        "openssl<1.1" \
+	bzip2 \
         zlib \
         readline \
         sqlite \
@@ -53,7 +49,7 @@ RUN set -ex \
     apk add --no-cache --virtual .pyenv_build_deps \
         build-base \
         libffi-dev \
-        openssl-dev \
+        "openssl-dev<1.1" \
         bzip2-dev \
         zlib-dev \
         readline-dev \
@@ -61,6 +57,8 @@ RUN set -ex \
 
 # Install Python from pyenv
 RUN set -ex \
+    && \
+    source /etc/.bashrc \
     && \
     pyenv install ${PYTHON_VERSION} \
     && \
@@ -71,7 +69,7 @@ RUN set -ex \
 # Install Python packages
 RUN set -ex \
     && \
-    eval "$(pyenv init -)" \
+    source /etc/.bashrc \
     && \
     pyenv global ${PYTHON_VERSION} \
     && \
@@ -87,12 +85,14 @@ RUN set -ex \
         setuptools \
         wheel \
         pipenv \
+        toml \
+        PyYAML \
     && \
     pipenv install --python ${PYTHON_VERSION} \
     && \
     pipenv run python --version \
     && \ 
-    pipenv install \
+    pip install -U --no-cache-dir \
         Cython \
         numpy \
         pandas \
@@ -113,10 +113,18 @@ RUN set -ex \
         jsonschema \
         jupyterlab 
 
+# Quick Fix
+ENV ENV=/root/.bashrc
+RUN set -ex \
+    && \
+    mv /etc/.bashrc /root/.bashrc
+
 # Clean apk
 RUN set -ex \
     && \
-    apk del .pyenv_build-deps .pip_build_deps \
+    apk del .pyenv_build_deps \
+    && \
+    apk del .pip_build_deps \
     && \
     apk cache clean \
     && \
@@ -126,4 +134,4 @@ RUN set -ex \
     && \
     rm -rf /var/cache/apk/*
 
-CMD ["pipenv run python"]
+CMD ["python"]

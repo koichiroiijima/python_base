@@ -1,0 +1,258 @@
+++ dirname ./multiple_builds.sh
++ cd .
++ VERSIONS=(3.7.4 3.6.9 3.7.3 3.5.7 3.7.2 3.6.8 3.7.1 3.6.7 3.5.6 3.7.0 3.6.6 3.6.5 3.5.5 3.6.4 3.6.3)
++ for v in '${VERSIONS[*]}'
++ ./build.sh 3.7.4
+++ dirname ./build.sh
++ cd .
++ PYTHON_VERSION=3.7.4
++ ALPINE_VERSION=alpine3.10
++ VERSION=3.7.4-alpine3.10-0.0.2-20190729
++ echo '***** 3.7.4 *****'
++ docker build . --squash -t python_base:3.7.4-alpine3.10-0.0.2-20190729 --build-arg IMAGE_VERSION=3.7.4-alpine3.10-0.0.2-20190729 --build-arg IMAGE_NAME=python_base --build-arg PYTHON_VERSION=3.7.4
++ docker tag python_base:3.7.4-alpine3.10-0.0.2-20190729 python_base:latest
++ docker login
+WARNING! Your password will be stored unencrypted in /home/koichiroiijima/.docker/config.json.
+Configure a credential helper to remove this warning. See
+https://docs.docker.com/engine/reference/commandline/login/#credentials-store
+
++ docker tag python_base:3.7.4-alpine3.10-0.0.2-20190729 koichiroiijima/python_base:3.7.4-alpine3.10-0.0.2-20190729
++ docker push koichiroiijima/python_base:3.7.4-alpine3.10-0.0.2-20190729
++ for v in '${VERSIONS[*]}'
++ ./build.sh 3.6.9
+++ dirname ./build.sh
++ cd .
++ PYTHON_VERSION=3.6.9
++ ALPINE_VERSION=alpine3.10
++ VERSION=3.6.9-alpine3.10-0.0.2-20190729
++ echo '***** 3.6.9 *****'
++ docker build . --squash -t python_base:3.6.9-alpine3.10-0.0.2-20190729 --build-arg IMAGE_VERSION=3.6.9-alpine3.10-0.0.2-20190729 --build-arg IMAGE_NAME=python_base --build-arg PYTHON_VERSION=3.6.9
++ docker tag python_base:3.6.9-alpine3.10-0.0.2-20190729 python_base:latest
++ docker login
+WARNING! Your password will be stored unencrypted in /home/koichiroiijima/.docker/config.json.
+Configure a credential helper to remove this warning. See
+https://docs.docker.com/engine/reference/commandline/login/#credentials-store
+
++ docker tag python_base:3.6.9-alpine3.10-0.0.2-20190729 koichiroiijima/python_base:3.6.9-alpine3.10-0.0.2-20190729
++ docker push koichiroiijima/python_base:3.6.9-alpine3.10-0.0.2-20190729
++ for v in '${VERSIONS[*]}'
++ ./build.sh 3.7.3
+++ dirname ./build.sh
++ cd .
++ PYTHON_VERSION=3.7.3
++ ALPINE_VERSION=alpine3.10
++ VERSION=3.7.3-alpine3.10-0.0.2-20190729
++ echo '***** 3.7.3 *****'
++ docker build . --squash -t python_base:3.7.3-alpine3.10-0.0.2-20190729 --build-arg IMAGE_VERSION=3.7.3-alpine3.10-0.0.2-20190729 --build-arg IMAGE_NAME=python_base --build-arg PYTHON_VERSION=3.7.3
++ docker tag python_base:3.7.3-alpine3.10-0.0.2-20190729 python_base:latest
++ docker login
+WARNING! Your password will be stored unencrypted in /home/koichiroiijima/.docker/config.json.
+Configure a credential helper to remove this warning. See
+https://docs.docker.com/engine/reference/commandline/login/#credentials-store
+
++ docker tag python_base:3.7.3-alpine3.10-0.0.2-20190729 koichiroiijima/python_base:3.7.3-alpine3.10-0.0.2-20190729
++ docker push koichiroiijima/python_base:3.7.3-alpine3.10-0.0.2-20190729
++ for v in '${VERSIONS[*]}'
++ ./build.sh 3.5.7
+++ dirname ./build.sh
++ cd .
++ PYTHON_VERSION=3.5.7
++ ALPINE_VERSION=alpine3.10
++ VERSION=3.5.7-alpine3.10-0.0.2-20190729
++ echo '***** 3.5.7 *****'
++ docker build . --squash -t python_base:3.5.7-alpine3.10-0.0.2-20190729 --build-arg IMAGE_VERSION=3.5.7-alpine3.10-0.0.2-20190729 --build-arg IMAGE_NAME=python_base --build-arg PYTHON_VERSION=3.5.7
++ docker tag python_base:3.5.7-alpine3.10-0.0.2-20190729 python_base:latest
++ docker login
+WARNING! Your password will be stored unencrypted in /home/koichiroiijima/.docker/config.json.
+Configure a credential helper to remove this warning. See
+https://docs.docker.com/engine/reference/commandline/login/#credentials-store
+
++ docker tag python_base:3.5.7-alpine3.10-0.0.2-20190729 koichiroiijima/python_base:3.5.7-alpine3.10-0.0.2-20190729
++ docker push koichiroiijima/python_base:3.5.7-alpine3.10-0.0.2-20190729
++ for v in '${VERSIONS[*]}'
++ ./build.sh 3.7.2
+++ dirname ./build.sh
++ cd .
++ PYTHON_VERSION=3.7.2
++ ALPINE_VERSION=alpine3.10
++ VERSION=3.7.2-alpine3.10-0.0.2-20190729
++ echo '***** 3.7.2 *****'
++ docker build . --squash -t python_base:3.7.2-alpine3.10-0.0.2-20190729 --build-arg IMAGE_VERSION=3.7.2-alpine3.10-0.0.2-20190729 --build-arg IMAGE_NAME=python_base --build-arg PYTHON_VERSION=3.7.2
++ docker tag python_base:3.7.2-alpine3.10-0.0.2-20190729 python_base:latest
++ docker login
+WARNING! Your password will be stored unencrypted in /home/koichiroiijima/.docker/config.json.
+Configure a credential helper to remove this warning. See
+https://docs.docker.com/engine/reference/commandline/login/#credentials-store
+
++ docker tag python_base:3.7.2-alpine3.10-0.0.2-20190729 koichiroiijima/python_base:3.7.2-alpine3.10-0.0.2-20190729
++ docker push koichiroiijima/python_base:3.7.2-alpine3.10-0.0.2-20190729
++ for v in '${VERSIONS[*]}'
++ ./build.sh 3.6.8
+++ dirname ./build.sh
++ cd .
++ PYTHON_VERSION=3.6.8
++ ALPINE_VERSION=alpine3.10
++ VERSION=3.6.8-alpine3.10-0.0.2-20190729
++ echo '***** 3.6.8 *****'
++ docker build . --squash -t python_base:3.6.8-alpine3.10-0.0.2-20190729 --build-arg IMAGE_VERSION=3.6.8-alpine3.10-0.0.2-20190729 --build-arg IMAGE_NAME=python_base --build-arg PYTHON_VERSION=3.6.8
++ docker tag python_base:3.6.8-alpine3.10-0.0.2-20190729 python_base:latest
++ docker login
+WARNING! Your password will be stored unencrypted in /home/koichiroiijima/.docker/config.json.
+Configure a credential helper to remove this warning. See
+https://docs.docker.com/engine/reference/commandline/login/#credentials-store
+
++ docker tag python_base:3.6.8-alpine3.10-0.0.2-20190729 koichiroiijima/python_base:3.6.8-alpine3.10-0.0.2-20190729
++ docker push koichiroiijima/python_base:3.6.8-alpine3.10-0.0.2-20190729
++ for v in '${VERSIONS[*]}'
++ ./build.sh 3.7.1
+++ dirname ./build.sh
++ cd .
++ PYTHON_VERSION=3.7.1
++ ALPINE_VERSION=alpine3.10
++ VERSION=3.7.1-alpine3.10-0.0.2-20190729
++ echo '***** 3.7.1 *****'
++ docker build . --squash -t python_base:3.7.1-alpine3.10-0.0.2-20190729 --build-arg IMAGE_VERSION=3.7.1-alpine3.10-0.0.2-20190729 --build-arg IMAGE_NAME=python_base --build-arg PYTHON_VERSION=3.7.1
++ docker tag python_base:3.7.1-alpine3.10-0.0.2-20190729 python_base:latest
++ docker login
+WARNING! Your password will be stored unencrypted in /home/koichiroiijima/.docker/config.json.
+Configure a credential helper to remove this warning. See
+https://docs.docker.com/engine/reference/commandline/login/#credentials-store
+
++ docker tag python_base:3.7.1-alpine3.10-0.0.2-20190729 koichiroiijima/python_base:3.7.1-alpine3.10-0.0.2-20190729
++ docker push koichiroiijima/python_base:3.7.1-alpine3.10-0.0.2-20190729
++ for v in '${VERSIONS[*]}'
++ ./build.sh 3.6.7
+++ dirname ./build.sh
++ cd .
++ PYTHON_VERSION=3.6.7
++ ALPINE_VERSION=alpine3.10
++ VERSION=3.6.7-alpine3.10-0.0.2-20190729
++ echo '***** 3.6.7 *****'
++ docker build . --squash -t python_base:3.6.7-alpine3.10-0.0.2-20190729 --build-arg IMAGE_VERSION=3.6.7-alpine3.10-0.0.2-20190729 --build-arg IMAGE_NAME=python_base --build-arg PYTHON_VERSION=3.6.7
++ docker tag python_base:3.6.7-alpine3.10-0.0.2-20190729 python_base:latest
++ docker login
+WARNING! Your password will be stored unencrypted in /home/koichiroiijima/.docker/config.json.
+Configure a credential helper to remove this warning. See
+https://docs.docker.com/engine/reference/commandline/login/#credentials-store
+
++ docker tag python_base:3.6.7-alpine3.10-0.0.2-20190729 koichiroiijima/python_base:3.6.7-alpine3.10-0.0.2-20190729
++ docker push koichiroiijima/python_base:3.6.7-alpine3.10-0.0.2-20190729
++ for v in '${VERSIONS[*]}'
++ ./build.sh 3.5.6
+++ dirname ./build.sh
++ cd .
++ PYTHON_VERSION=3.5.6
++ ALPINE_VERSION=alpine3.10
++ VERSION=3.5.6-alpine3.10-0.0.2-20190729
++ echo '***** 3.5.6 *****'
++ docker build . --squash -t python_base:3.5.6-alpine3.10-0.0.2-20190729 --build-arg IMAGE_VERSION=3.5.6-alpine3.10-0.0.2-20190729 --build-arg IMAGE_NAME=python_base --build-arg PYTHON_VERSION=3.5.6
++ docker tag python_base:3.5.6-alpine3.10-0.0.2-20190729 python_base:latest
++ docker login
+WARNING! Your password will be stored unencrypted in /home/koichiroiijima/.docker/config.json.
+Configure a credential helper to remove this warning. See
+https://docs.docker.com/engine/reference/commandline/login/#credentials-store
+
++ docker tag python_base:3.5.6-alpine3.10-0.0.2-20190729 koichiroiijima/python_base:3.5.6-alpine3.10-0.0.2-20190729
++ docker push koichiroiijima/python_base:3.5.6-alpine3.10-0.0.2-20190729
++ for v in '${VERSIONS[*]}'
++ ./build.sh 3.7.0
+++ dirname ./build.sh
++ cd .
++ PYTHON_VERSION=3.7.0
++ ALPINE_VERSION=alpine3.10
++ VERSION=3.7.0-alpine3.10-0.0.2-20190729
++ echo '***** 3.7.0 *****'
++ docker build . --squash -t python_base:3.7.0-alpine3.10-0.0.2-20190729 --build-arg IMAGE_VERSION=3.7.0-alpine3.10-0.0.2-20190729 --build-arg IMAGE_NAME=python_base --build-arg PYTHON_VERSION=3.7.0
++ docker tag python_base:3.7.0-alpine3.10-0.0.2-20190729 python_base:latest
++ docker login
+WARNING! Your password will be stored unencrypted in /home/koichiroiijima/.docker/config.json.
+Configure a credential helper to remove this warning. See
+https://docs.docker.com/engine/reference/commandline/login/#credentials-store
+
++ docker tag python_base:3.7.0-alpine3.10-0.0.2-20190729 koichiroiijima/python_base:3.7.0-alpine3.10-0.0.2-20190729
++ docker push koichiroiijima/python_base:3.7.0-alpine3.10-0.0.2-20190729
++ for v in '${VERSIONS[*]}'
++ ./build.sh 3.6.6
+++ dirname ./build.sh
++ cd .
++ PYTHON_VERSION=3.6.6
++ ALPINE_VERSION=alpine3.10
++ VERSION=3.6.6-alpine3.10-0.0.2-20190729
++ echo '***** 3.6.6 *****'
++ docker build . --squash -t python_base:3.6.6-alpine3.10-0.0.2-20190729 --build-arg IMAGE_VERSION=3.6.6-alpine3.10-0.0.2-20190729 --build-arg IMAGE_NAME=python_base --build-arg PYTHON_VERSION=3.6.6
++ docker tag python_base:3.6.6-alpine3.10-0.0.2-20190729 python_base:latest
++ docker login
+WARNING! Your password will be stored unencrypted in /home/koichiroiijima/.docker/config.json.
+Configure a credential helper to remove this warning. See
+https://docs.docker.com/engine/reference/commandline/login/#credentials-store
+
++ docker tag python_base:3.6.6-alpine3.10-0.0.2-20190729 koichiroiijima/python_base:3.6.6-alpine3.10-0.0.2-20190729
++ docker push koichiroiijima/python_base:3.6.6-alpine3.10-0.0.2-20190729
++ for v in '${VERSIONS[*]}'
++ ./build.sh 3.6.5
+++ dirname ./build.sh
++ cd .
++ PYTHON_VERSION=3.6.5
++ ALPINE_VERSION=alpine3.10
++ VERSION=3.6.5-alpine3.10-0.0.2-20190729
++ echo '***** 3.6.5 *****'
++ docker build . --squash -t python_base:3.6.5-alpine3.10-0.0.2-20190729 --build-arg IMAGE_VERSION=3.6.5-alpine3.10-0.0.2-20190729 --build-arg IMAGE_NAME=python_base --build-arg PYTHON_VERSION=3.6.5
++ docker tag python_base:3.6.5-alpine3.10-0.0.2-20190729 python_base:latest
++ docker login
+WARNING! Your password will be stored unencrypted in /home/koichiroiijima/.docker/config.json.
+Configure a credential helper to remove this warning. See
+https://docs.docker.com/engine/reference/commandline/login/#credentials-store
+
++ docker tag python_base:3.6.5-alpine3.10-0.0.2-20190729 koichiroiijima/python_base:3.6.5-alpine3.10-0.0.2-20190729
++ docker push koichiroiijima/python_base:3.6.5-alpine3.10-0.0.2-20190729
++ for v in '${VERSIONS[*]}'
++ ./build.sh 3.5.5
+++ dirname ./build.sh
++ cd .
++ PYTHON_VERSION=3.5.5
++ ALPINE_VERSION=alpine3.10
++ VERSION=3.5.5-alpine3.10-0.0.2-20190729
++ echo '***** 3.5.5 *****'
++ docker build . --squash -t python_base:3.5.5-alpine3.10-0.0.2-20190729 --build-arg IMAGE_VERSION=3.5.5-alpine3.10-0.0.2-20190729 --build-arg IMAGE_NAME=python_base --build-arg PYTHON_VERSION=3.5.5
++ docker tag python_base:3.5.5-alpine3.10-0.0.2-20190729 python_base:latest
++ docker login
+WARNING! Your password will be stored unencrypted in /home/koichiroiijima/.docker/config.json.
+Configure a credential helper to remove this warning. See
+https://docs.docker.com/engine/reference/commandline/login/#credentials-store
+
++ docker tag python_base:3.5.5-alpine3.10-0.0.2-20190729 koichiroiijima/python_base:3.5.5-alpine3.10-0.0.2-20190729
++ docker push koichiroiijima/python_base:3.5.5-alpine3.10-0.0.2-20190729
++ for v in '${VERSIONS[*]}'
++ ./build.sh 3.6.4
+++ dirname ./build.sh
++ cd .
++ PYTHON_VERSION=3.6.4
++ ALPINE_VERSION=alpine3.10
++ VERSION=3.6.4-alpine3.10-0.0.2-20190729
++ echo '***** 3.6.4 *****'
++ docker build . --squash -t python_base:3.6.4-alpine3.10-0.0.2-20190729 --build-arg IMAGE_VERSION=3.6.4-alpine3.10-0.0.2-20190729 --build-arg IMAGE_NAME=python_base --build-arg PYTHON_VERSION=3.6.4
++ docker tag python_base:3.6.4-alpine3.10-0.0.2-20190729 python_base:latest
++ docker login
+WARNING! Your password will be stored unencrypted in /home/koichiroiijima/.docker/config.json.
+Configure a credential helper to remove this warning. See
+https://docs.docker.com/engine/reference/commandline/login/#credentials-store
+
++ docker tag python_base:3.6.4-alpine3.10-0.0.2-20190729 koichiroiijima/python_base:3.6.4-alpine3.10-0.0.2-20190729
++ docker push koichiroiijima/python_base:3.6.4-alpine3.10-0.0.2-20190729
++ for v in '${VERSIONS[*]}'
++ ./build.sh 3.6.3
+++ dirname ./build.sh
++ cd .
++ PYTHON_VERSION=3.6.3
++ ALPINE_VERSION=alpine3.10
++ VERSION=3.6.3-alpine3.10-0.0.2-20190729
++ echo '***** 3.6.3 *****'
++ docker build . --squash -t python_base:3.6.3-alpine3.10-0.0.2-20190729 --build-arg IMAGE_VERSION=3.6.3-alpine3.10-0.0.2-20190729 --build-arg IMAGE_NAME=python_base --build-arg PYTHON_VERSION=3.6.3
++ docker tag python_base:3.6.3-alpine3.10-0.0.2-20190729 python_base:latest
++ docker login
+WARNING! Your password will be stored unencrypted in /home/koichiroiijima/.docker/config.json.
+Configure a credential helper to remove this warning. See
+https://docs.docker.com/engine/reference/commandline/login/#credentials-store
+
++ docker tag python_base:3.6.3-alpine3.10-0.0.2-20190729 koichiroiijima/python_base:3.6.3-alpine3.10-0.0.2-20190729
++ docker push koichiroiijima/python_base:3.6.3-alpine3.10-0.0.2-20190729

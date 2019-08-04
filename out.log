@@ -1,0 +1,917 @@
+***** 3.7.4 *****
+Sending build context to Docker daemon  93.18kB
+Step 1/16 : FROM koichiroiijima/alpine_base:3.10-0.0.2-20190729
+ ---> c8f39cd4c319
+Step 2/16 : ARG IMAGE_NAME=python_base
+ ---> Using cache
+ ---> 4bb7c16a9ebf
+Step 3/16 : ARG IMAGE_VERSION=3.7.4-alpine3.10-0.0.2
+ ---> Using cache
+ ---> 1f0f7519cbb9
+Step 4/16 : ARG PYTHON_VERSION=3.7.4
+ ---> Using cache
+ ---> cef77111c862
+Step 5/16 : LABEL     NAME=${IMAGE_NAME}     VERSION=${IMANGE_VERSION}     PYTHON_VERSION=${PYTHON_VERSION}
+ ---> Using cache
+ ---> d387d49dc44d
+Step 6/16 : RUN set -ex     &&     apk add --no-cache --update         python3     &&     ln -sfn $(which python3) /usr/bin/python     &&     ln -sfn $(which pip3) /usr/bin/pip     &&     python --version     &&     pip --version
+ ---> Using cache
+ ---> 510590cb610f
+Step 7/16 : ENV PYENV_ROOT=/root/.pyenv
+ ---> Using cache
+ ---> 297b9ff5e43f
+Step 8/16 : ENV PATH=${PATH}:/root/.pyenv/bin
+ ---> Using cache
+ ---> 8f0caf061545
+Step 9/16 : RUN set -ex     &&     git clone https://github.com/pyenv/pyenv.git ~/.pyenv     &&     echo -e 'if command -v pyenv 1>/dev/null 2>&1; then\n  eval "$(pyenv init -)"\nfi' >> /etc/.bashrc     &&     source /etc/.bashrc     &&     pyenv version
+ ---> Using cache
+ ---> 6e465f9642d3
+Step 10/16 : RUN set -ex     &&     apk add --no-cache         libffi         "openssl<1.1" 	bzip2         zlib         readline         sqlite     &&     apk add --no-cache --virtual .pyenv_build_deps         build-base         libffi-dev         "openssl-dev<1.1"         bzip2-dev         zlib-dev         readline-dev         sqlite-dev
+ ---> Using cache
+ ---> ee494dc617d2
+Step 11/16 : RUN set -ex     &&     source /etc/.bashrc     &&     pyenv install ${PYTHON_VERSION}     &&     pyenv global ${PYTHON_VERSION}     &&     python --version
+ ---> Using cache
+ ---> 0131ece3763b
+Step 12/16 : RUN set -ex     &&     source /etc/.bashrc     &&     pyenv global ${PYTHON_VERSION}     &&     python --version     &&     apk add --no-cache openblas lapack     &&     apk add --no-cache openblas-dev --virtual .pip_build_deps     &&     pip install -U --no-cache-dir pip     &&     pip install -U --no-cache-dir         setuptools         wheel         pipenv         toml         PyYAML     &&     pipenv install --python ${PYTHON_VERSION}     &&     pipenv run python --version     &&     pip install -U --no-cache-dir         Cython         numpy         pandas         scipy         scikit-learn         pytest         pytest-cov         flake8         flake8-docstrings         flake8-import-order         pep8-naming         pyformat         isort         redis         boto3         Flask         PyYAML         jsonschema         jupyterlab
+ ---> Using cache
+ ---> aeb0cb465324
+Step 13/16 : ENV ENV=/root/.bashrc
+ ---> Using cache
+ ---> c0bd86ddb1a6
+Step 14/16 : RUN set -ex     &&     mv /etc/.bashrc /root/.bashrc
+ ---> Using cache
+ ---> fc13fdee09c7
+Step 15/16 : RUN set -ex     &&     apk del .pyenv_build_deps     &&     apk del .pip_build_deps     &&     apk cache clean     &&     rm -rf ~/.cache/*     &&     rm -rf ~/.pyenv/cache/*     &&     rm -rf /var/cache/apk/*
+ ---> Using cache
+ ---> 6bcb11d19614
+Step 16/16 : CMD ["python"]
+ ---> Using cache
+ ---> 594be14902df
+Successfully built 06234aefc2d8
+Successfully tagged python_base:3.7.4-alpine3.10-0.0.2-20190729
+Authenticating with existing credentials...
+Login Succeeded
+The push refers to repository [docker.io/koichiroiijima/python_base]
+8c5a1196b3a2: Preparing
+d52d5ef8daa9: Preparing
+1bfeebd65323: Preparing
+1bfeebd65323: Layer already exists
+d52d5ef8daa9: Layer already exists
+8c5a1196b3a2: Layer already exists
+3.7.4-alpine3.10-0.0.2-20190729: digest: sha256:a32a94bb6c44bc45202fb00df18092e66e3da04e8df32d4436fab916505a5cb5 size: 954
+***** 3.6.9 *****
+Sending build context to Docker daemon  180.7kB
+Step 1/16 : FROM koichiroiijima/alpine_base:3.10-0.0.2-20190729
+ ---> c8f39cd4c319
+Step 2/16 : ARG IMAGE_NAME=python_base
+ ---> Using cache
+ ---> 4bb7c16a9ebf
+Step 3/16 : ARG IMAGE_VERSION=3.7.4-alpine3.10-0.0.2
+ ---> Using cache
+ ---> 1f0f7519cbb9
+Step 4/16 : ARG PYTHON_VERSION=3.7.4
+ ---> Using cache
+ ---> cef77111c862
+Step 5/16 : LABEL     NAME=${IMAGE_NAME}     VERSION=${IMANGE_VERSION}     PYTHON_VERSION=${PYTHON_VERSION}
+ ---> Using cache
+ ---> be53e5c9e571
+Step 6/16 : RUN set -ex     &&     apk add --no-cache --update         python3     &&     ln -sfn $(which python3) /usr/bin/python     &&     ln -sfn $(which pip3) /usr/bin/pip     &&     python --version     &&     pip --version
+ ---> Using cache
+ ---> f00dcfcfa976
+Step 7/16 : ENV PYENV_ROOT=/root/.pyenv
+ ---> Using cache
+ ---> ac90bde4cca1
+Step 8/16 : ENV PATH=${PATH}:/root/.pyenv/bin
+ ---> Using cache
+ ---> 91527a1ce81f
+Step 9/16 : RUN set -ex     &&     git clone https://github.com/pyenv/pyenv.git ~/.pyenv     &&     echo -e 'if command -v pyenv 1>/dev/null 2>&1; then\n  eval "$(pyenv init -)"\nfi' >> /etc/.bashrc     &&     source /etc/.bashrc     &&     pyenv version
+ ---> Using cache
+ ---> 3a987e11f03a
+Step 10/16 : RUN set -ex     &&     apk add --no-cache         libffi         "openssl<1.1" 	bzip2         zlib         readline         sqlite     &&     apk add --no-cache --virtual .pyenv_build_deps         build-base         libffi-dev         "openssl-dev<1.1"         bzip2-dev         zlib-dev         readline-dev         sqlite-dev
+ ---> Using cache
+ ---> c4bf981ebbaf
+Step 11/16 : RUN set -ex     &&     source /etc/.bashrc     &&     pyenv install ${PYTHON_VERSION}     &&     pyenv global ${PYTHON_VERSION}     &&     python --version
+ ---> Using cache
+ ---> 41f745f9366c
+Step 12/16 : RUN set -ex     &&     source /etc/.bashrc     &&     pyenv global ${PYTHON_VERSION}     &&     python --version     &&     apk add --no-cache openblas lapack     &&     apk add --no-cache openblas-dev --virtual .pip_build_deps     &&     pip install -U --no-cache-dir pip     &&     pip install -U --no-cache-dir         setuptools         wheel         pipenv         toml         PyYAML     &&     pipenv install --python ${PYTHON_VERSION}     &&     pipenv run python --version     &&     pip install -U --no-cache-dir         Cython         numpy         pandas         scipy         scikit-learn         pytest         pytest-cov         flake8         flake8-docstrings         flake8-import-order         pep8-naming         pyformat         isort         redis         boto3         Flask         PyYAML         jsonschema         jupyterlab
+ ---> Using cache
+ ---> 8906ed7f485e
+Step 13/16 : ENV ENV=/root/.bashrc
+ ---> Using cache
+ ---> 405611a34c20
+Step 14/16 : RUN set -ex     &&     mv /etc/.bashrc /root/.bashrc
+ ---> Using cache
+ ---> 604fc4392bd4
+Step 15/16 : RUN set -ex     &&     apk del .pyenv_build_deps     &&     apk del .pip_build_deps     &&     apk cache clean     &&     rm -rf ~/.cache/*     &&     rm -rf ~/.pyenv/cache/*     &&     rm -rf /var/cache/apk/*
+ ---> Using cache
+ ---> a15aa82494c3
+Step 16/16 : CMD ["python"]
+ ---> Using cache
+ ---> db7bf5d431cb
+Successfully built b10cac5bd169
+Successfully tagged python_base:3.6.9-alpine3.10-0.0.2-20190729
+Authenticating with existing credentials...
+Login Succeeded
+The push refers to repository [docker.io/koichiroiijima/python_base]
+b84a7d3fd44f: Preparing
+d52d5ef8daa9: Preparing
+1bfeebd65323: Preparing
+b84a7d3fd44f: Layer already exists
+d52d5ef8daa9: Layer already exists
+1bfeebd65323: Layer already exists
+3.6.9-alpine3.10-0.0.2-20190729: digest: sha256:11100e9282ce2f7f4a36985f5619e94d54d963370abcfbeb9a27b6d9a0e976bf size: 954
+***** 3.7.3 *****
+Sending build context to Docker daemon  181.8kB
+Step 1/16 : FROM koichiroiijima/alpine_base:3.10-0.0.2-20190729
+ ---> c8f39cd4c319
+Step 2/16 : ARG IMAGE_NAME=python_base
+ ---> Using cache
+ ---> 4bb7c16a9ebf
+Step 3/16 : ARG IMAGE_VERSION=3.7.4-alpine3.10-0.0.2
+ ---> Using cache
+ ---> 1f0f7519cbb9
+Step 4/16 : ARG PYTHON_VERSION=3.7.4
+ ---> Using cache
+ ---> cef77111c862
+Step 5/16 : LABEL     NAME=${IMAGE_NAME}     VERSION=${IMANGE_VERSION}     PYTHON_VERSION=${PYTHON_VERSION}
+ ---> Using cache
+ ---> 408e70319d01
+Step 6/16 : RUN set -ex     &&     apk add --no-cache --update         python3     &&     ln -sfn $(which python3) /usr/bin/python     &&     ln -sfn $(which pip3) /usr/bin/pip     &&     python --version     &&     pip --version
+ ---> Using cache
+ ---> c4f1d46550ff
+Step 7/16 : ENV PYENV_ROOT=/root/.pyenv
+ ---> Using cache
+ ---> dfc31ddaf03d
+Step 8/16 : ENV PATH=${PATH}:/root/.pyenv/bin
+ ---> Using cache
+ ---> 5e95435ef0fd
+Step 9/16 : RUN set -ex     &&     git clone https://github.com/pyenv/pyenv.git ~/.pyenv     &&     echo -e 'if command -v pyenv 1>/dev/null 2>&1; then\n  eval "$(pyenv init -)"\nfi' >> /etc/.bashrc     &&     source /etc/.bashrc     &&     pyenv version
+ ---> Using cache
+ ---> bb4301de8517
+Step 10/16 : RUN set -ex     &&     apk add --no-cache         libffi         "openssl<1.1" 	bzip2         zlib         readline         sqlite     &&     apk add --no-cache --virtual .pyenv_build_deps         build-base         libffi-dev         "openssl-dev<1.1"         bzip2-dev         zlib-dev         readline-dev         sqlite-dev
+ ---> Using cache
+ ---> db10cef7ce6a
+Step 11/16 : RUN set -ex     &&     source /etc/.bashrc     &&     pyenv install ${PYTHON_VERSION}     &&     pyenv global ${PYTHON_VERSION}     &&     python --version
+ ---> Using cache
+ ---> afe6c0ff60ac
+Step 12/16 : RUN set -ex     &&     source /etc/.bashrc     &&     pyenv global ${PYTHON_VERSION}     &&     python --version     &&     apk add --no-cache openblas lapack     &&     apk add --no-cache openblas-dev --virtual .pip_build_deps     &&     pip install -U --no-cache-dir pip     &&     pip install -U --no-cache-dir         setuptools         wheel         pipenv         toml         PyYAML     &&     pipenv install --python ${PYTHON_VERSION}     &&     pipenv run python --version     &&     pip install -U --no-cache-dir         Cython         numpy         pandas         scipy         scikit-learn         pytest         pytest-cov         flake8         flake8-docstrings         flake8-import-order         pep8-naming         pyformat         isort         redis         boto3         Flask         PyYAML         jsonschema         jupyterlab
+ ---> Using cache
+ ---> babcd56c320e
+Step 13/16 : ENV ENV=/root/.bashrc
+ ---> Using cache
+ ---> 4dcc23ee5431
+Step 14/16 : RUN set -ex     &&     mv /etc/.bashrc /root/.bashrc
+ ---> Using cache
+ ---> 3c6d70e5adfb
+Step 15/16 : RUN set -ex     &&     apk del .pyenv_build_deps     &&     apk del .pip_build_deps     &&     apk cache clean     &&     rm -rf ~/.cache/*     &&     rm -rf ~/.pyenv/cache/*     &&     rm -rf /var/cache/apk/*
+ ---> Using cache
+ ---> 8ada105546c7
+Step 16/16 : CMD ["python"]
+ ---> Using cache
+ ---> bb2cce72c82e
+Successfully built 0e64796cb5c3
+Successfully tagged python_base:3.7.3-alpine3.10-0.0.2-20190729
+Authenticating with existing credentials...
+Login Succeeded
+The push refers to repository [docker.io/koichiroiijima/python_base]
+081235b13b0d: Preparing
+d52d5ef8daa9: Preparing
+1bfeebd65323: Preparing
+081235b13b0d: Layer already exists
+1bfeebd65323: Layer already exists
+d52d5ef8daa9: Layer already exists
+3.7.3-alpine3.10-0.0.2-20190729: digest: sha256:6a4f1532f42fbfd8e71ec20efa6507c0c01336336257594d1ac81bbf3286d415 size: 954
+***** 3.5.7 *****
+Sending build context to Docker daemon  182.8kB
+Step 1/16 : FROM koichiroiijima/alpine_base:3.10-0.0.2-20190729
+ ---> c8f39cd4c319
+Step 2/16 : ARG IMAGE_NAME=python_base
+ ---> Using cache
+ ---> 4bb7c16a9ebf
+Step 3/16 : ARG IMAGE_VERSION=3.7.4-alpine3.10-0.0.2
+ ---> Using cache
+ ---> 1f0f7519cbb9
+Step 4/16 : ARG PYTHON_VERSION=3.7.4
+ ---> Using cache
+ ---> cef77111c862
+Step 5/16 : LABEL     NAME=${IMAGE_NAME}     VERSION=${IMANGE_VERSION}     PYTHON_VERSION=${PYTHON_VERSION}
+ ---> Using cache
+ ---> 9c3dd829979f
+Step 6/16 : RUN set -ex     &&     apk add --no-cache --update         python3     &&     ln -sfn $(which python3) /usr/bin/python     &&     ln -sfn $(which pip3) /usr/bin/pip     &&     python --version     &&     pip --version
+ ---> Using cache
+ ---> cf21132721a5
+Step 7/16 : ENV PYENV_ROOT=/root/.pyenv
+ ---> Using cache
+ ---> 21cc373266b1
+Step 8/16 : ENV PATH=${PATH}:/root/.pyenv/bin
+ ---> Using cache
+ ---> 1efd0fe62229
+Step 9/16 : RUN set -ex     &&     git clone https://github.com/pyenv/pyenv.git ~/.pyenv     &&     echo -e 'if command -v pyenv 1>/dev/null 2>&1; then\n  eval "$(pyenv init -)"\nfi' >> /etc/.bashrc     &&     source /etc/.bashrc     &&     pyenv version
+ ---> Using cache
+ ---> 9da8cf60f08f
+Step 10/16 : RUN set -ex     &&     apk add --no-cache         libffi         "openssl<1.1" 	bzip2         zlib         readline         sqlite     &&     apk add --no-cache --virtual .pyenv_build_deps         build-base         libffi-dev         "openssl-dev<1.1"         bzip2-dev         zlib-dev         readline-dev         sqlite-dev
+ ---> Using cache
+ ---> 32fc38cc6f2e
+Step 11/16 : RUN set -ex     &&     source /etc/.bashrc     &&     pyenv install ${PYTHON_VERSION}     &&     pyenv global ${PYTHON_VERSION}     &&     python --version
+ ---> Using cache
+ ---> 842cf054fde0
+Step 12/16 : RUN set -ex     &&     source /etc/.bashrc     &&     pyenv global ${PYTHON_VERSION}     &&     python --version     &&     apk add --no-cache openblas lapack     &&     apk add --no-cache openblas-dev --virtual .pip_build_deps     &&     pip install -U --no-cache-dir pip     &&     pip install -U --no-cache-dir         setuptools         wheel         pipenv         toml         PyYAML     &&     pipenv install --python ${PYTHON_VERSION}     &&     pipenv run python --version     &&     pip install -U --no-cache-dir         Cython         numpy         pandas         scipy         scikit-learn         pytest         pytest-cov         flake8         flake8-docstrings         flake8-import-order         pep8-naming         pyformat         isort         redis         boto3         Flask         PyYAML         jsonschema         jupyterlab
+ ---> Using cache
+ ---> bcd13c72ef68
+Step 13/16 : ENV ENV=/root/.bashrc
+ ---> Using cache
+ ---> 4671ebe8935d
+Step 14/16 : RUN set -ex     &&     mv /etc/.bashrc /root/.bashrc
+ ---> Using cache
+ ---> d9dae39b0a27
+Step 15/16 : RUN set -ex     &&     apk del .pyenv_build_deps     &&     apk del .pip_build_deps     &&     apk cache clean     &&     rm -rf ~/.cache/*     &&     rm -rf ~/.pyenv/cache/*     &&     rm -rf /var/cache/apk/*
+ ---> Using cache
+ ---> 7aff6a6cf4ce
+Step 16/16 : CMD ["python"]
+ ---> Using cache
+ ---> 40667909d448
+Successfully built 8215c24e338b
+Successfully tagged python_base:3.5.7-alpine3.10-0.0.2-20190729
+Authenticating with existing credentials...
+Login Succeeded
+The push refers to repository [docker.io/koichiroiijima/python_base]
+33de885c6fbb: Preparing
+d52d5ef8daa9: Preparing
+1bfeebd65323: Preparing
+1bfeebd65323: Layer already exists
+d52d5ef8daa9: Layer already exists
+33de885c6fbb: Layer already exists
+3.5.7-alpine3.10-0.0.2-20190729: digest: sha256:d8049b6d956bf456665b31dc2803a934e5b2af1c596772182eb7f504eaf88c40 size: 954
+***** 3.7.2 *****
+Sending build context to Docker daemon  183.8kB
+Step 1/16 : FROM koichiroiijima/alpine_base:3.10-0.0.2-20190729
+ ---> c8f39cd4c319
+Step 2/16 : ARG IMAGE_NAME=python_base
+ ---> Using cache
+ ---> 4bb7c16a9ebf
+Step 3/16 : ARG IMAGE_VERSION=3.7.4-alpine3.10-0.0.2
+ ---> Using cache
+ ---> 1f0f7519cbb9
+Step 4/16 : ARG PYTHON_VERSION=3.7.4
+ ---> Using cache
+ ---> cef77111c862
+Step 5/16 : LABEL     NAME=${IMAGE_NAME}     VERSION=${IMANGE_VERSION}     PYTHON_VERSION=${PYTHON_VERSION}
+ ---> Using cache
+ ---> 87a3f517068b
+Step 6/16 : RUN set -ex     &&     apk add --no-cache --update         python3     &&     ln -sfn $(which python3) /usr/bin/python     &&     ln -sfn $(which pip3) /usr/bin/pip     &&     python --version     &&     pip --version
+ ---> Using cache
+ ---> 6357735b8ea2
+Step 7/16 : ENV PYENV_ROOT=/root/.pyenv
+ ---> Using cache
+ ---> e2331ab0a40f
+Step 8/16 : ENV PATH=${PATH}:/root/.pyenv/bin
+ ---> Using cache
+ ---> 0e2d800f31e5
+Step 9/16 : RUN set -ex     &&     git clone https://github.com/pyenv/pyenv.git ~/.pyenv     &&     echo -e 'if command -v pyenv 1>/dev/null 2>&1; then\n  eval "$(pyenv init -)"\nfi' >> /etc/.bashrc     &&     source /etc/.bashrc     &&     pyenv version
+ ---> Using cache
+ ---> 8cb1a15206fc
+Step 10/16 : RUN set -ex     &&     apk add --no-cache         libffi         "openssl<1.1" 	bzip2         zlib         readline         sqlite     &&     apk add --no-cache --virtual .pyenv_build_deps         build-base         libffi-dev         "openssl-dev<1.1"         bzip2-dev         zlib-dev         readline-dev         sqlite-dev
+ ---> Using cache
+ ---> 4d7af324dec2
+Step 11/16 : RUN set -ex     &&     source /etc/.bashrc     &&     pyenv install ${PYTHON_VERSION}     &&     pyenv global ${PYTHON_VERSION}     &&     python --version
+ ---> Using cache
+ ---> a9ccef2c21bb
+Step 12/16 : RUN set -ex     &&     source /etc/.bashrc     &&     pyenv global ${PYTHON_VERSION}     &&     python --version     &&     apk add --no-cache openblas lapack     &&     apk add --no-cache openblas-dev --virtual .pip_build_deps     &&     pip install -U --no-cache-dir pip     &&     pip install -U --no-cache-dir         setuptools         wheel         pipenv         toml         PyYAML     &&     pipenv install --python ${PYTHON_VERSION}     &&     pipenv run python --version     &&     pip install -U --no-cache-dir         Cython         numpy         pandas         scipy         scikit-learn         pytest         pytest-cov         flake8         flake8-docstrings         flake8-import-order         pep8-naming         pyformat         isort         redis         boto3         Flask         PyYAML         jsonschema         jupyterlab
+ ---> Using cache
+ ---> c611ca704cd0
+Step 13/16 : ENV ENV=/root/.bashrc
+ ---> Using cache
+ ---> dad022addbfe
+Step 14/16 : RUN set -ex     &&     mv /etc/.bashrc /root/.bashrc
+ ---> Using cache
+ ---> 2bb383aca2b1
+Step 15/16 : RUN set -ex     &&     apk del .pyenv_build_deps     &&     apk del .pip_build_deps     &&     apk cache clean     &&     rm -rf ~/.cache/*     &&     rm -rf ~/.pyenv/cache/*     &&     rm -rf /var/cache/apk/*
+ ---> Using cache
+ ---> 46321f607c54
+Step 16/16 : CMD ["python"]
+ ---> Using cache
+ ---> 5e24dc3a15c6
+Successfully built f1aeb307717e
+Successfully tagged python_base:3.7.2-alpine3.10-0.0.2-20190729
+Authenticating with existing credentials...
+Login Succeeded
+The push refers to repository [docker.io/koichiroiijima/python_base]
+d63fcb911b1c: Preparing
+d52d5ef8daa9: Preparing
+1bfeebd65323: Preparing
+d63fcb911b1c: Layer already exists
+1bfeebd65323: Layer already exists
+d52d5ef8daa9: Layer already exists
+3.7.2-alpine3.10-0.0.2-20190729: digest: sha256:a0e6d6beb4c246da689848f41d0e1866aaa661cad95ccf5244682dc01eac5260 size: 954
+***** 3.6.8 *****
+Sending build context to Docker daemon  184.3kB
+Step 1/16 : FROM koichiroiijima/alpine_base:3.10-0.0.2-20190729
+ ---> c8f39cd4c319
+Step 2/16 : ARG IMAGE_NAME=python_base
+ ---> Using cache
+ ---> 4bb7c16a9ebf
+Step 3/16 : ARG IMAGE_VERSION=3.7.4-alpine3.10-0.0.2
+ ---> Using cache
+ ---> 1f0f7519cbb9
+Step 4/16 : ARG PYTHON_VERSION=3.7.4
+ ---> Using cache
+ ---> cef77111c862
+Step 5/16 : LABEL     NAME=${IMAGE_NAME}     VERSION=${IMANGE_VERSION}     PYTHON_VERSION=${PYTHON_VERSION}
+ ---> Using cache
+ ---> c3094e5b8efd
+Step 6/16 : RUN set -ex     &&     apk add --no-cache --update         python3     &&     ln -sfn $(which python3) /usr/bin/python     &&     ln -sfn $(which pip3) /usr/bin/pip     &&     python --version     &&     pip --version
+ ---> Using cache
+ ---> ed79b09f3c50
+Step 7/16 : ENV PYENV_ROOT=/root/.pyenv
+ ---> Using cache
+ ---> 34c54ab299c3
+Step 8/16 : ENV PATH=${PATH}:/root/.pyenv/bin
+ ---> Using cache
+ ---> 09350c83a945
+Step 9/16 : RUN set -ex     &&     git clone https://github.com/pyenv/pyenv.git ~/.pyenv     &&     echo -e 'if command -v pyenv 1>/dev/null 2>&1; then\n  eval "$(pyenv init -)"\nfi' >> /etc/.bashrc     &&     source /etc/.bashrc     &&     pyenv version
+ ---> Using cache
+ ---> 32f1cd340cfa
+Step 10/16 : RUN set -ex     &&     apk add --no-cache         libffi         "openssl<1.1" 	bzip2         zlib         readline         sqlite     &&     apk add --no-cache --virtual .pyenv_build_deps         build-base         libffi-dev         "openssl-dev<1.1"         bzip2-dev         zlib-dev         readline-dev         sqlite-dev
+ ---> Using cache
+ ---> e2c4e82d4a32
+Step 11/16 : RUN set -ex     &&     source /etc/.bashrc     &&     pyenv install ${PYTHON_VERSION}     &&     pyenv global ${PYTHON_VERSION}     &&     python --version
+ ---> Using cache
+ ---> 71a03a16a7a2
+Step 12/16 : RUN set -ex     &&     source /etc/.bashrc     &&     pyenv global ${PYTHON_VERSION}     &&     python --version     &&     apk add --no-cache openblas lapack     &&     apk add --no-cache openblas-dev --virtual .pip_build_deps     &&     pip install -U --no-cache-dir pip     &&     pip install -U --no-cache-dir         setuptools         wheel         pipenv         toml         PyYAML     &&     pipenv install --python ${PYTHON_VERSION}     &&     pipenv run python --version     &&     pip install -U --no-cache-dir         Cython         numpy         pandas         scipy         scikit-learn         pytest         pytest-cov         flake8         flake8-docstrings         flake8-import-order         pep8-naming         pyformat         isort         redis         boto3         Flask         PyYAML         jsonschema         jupyterlab
+ ---> Using cache
+ ---> 74b6da8f0403
+Step 13/16 : ENV ENV=/root/.bashrc
+ ---> Using cache
+ ---> 225c03f1f81f
+Step 14/16 : RUN set -ex     &&     mv /etc/.bashrc /root/.bashrc
+ ---> Using cache
+ ---> b735cba36176
+Step 15/16 : RUN set -ex     &&     apk del .pyenv_build_deps     &&     apk del .pip_build_deps     &&     apk cache clean     &&     rm -rf ~/.cache/*     &&     rm -rf ~/.pyenv/cache/*     &&     rm -rf /var/cache/apk/*
+ ---> Using cache
+ ---> 064db4fa4a91
+Step 16/16 : CMD ["python"]
+ ---> Using cache
+ ---> 68c005fae1f0
+Successfully built ce89937652af
+Successfully tagged python_base:3.6.8-alpine3.10-0.0.2-20190729
+Authenticating with existing credentials...
+Login Succeeded
+The push refers to repository [docker.io/koichiroiijima/python_base]
+ee7d71c3cf07: Preparing
+d52d5ef8daa9: Preparing
+1bfeebd65323: Preparing
+ee7d71c3cf07: Layer already exists
+d52d5ef8daa9: Layer already exists
+1bfeebd65323: Layer already exists
+3.6.8-alpine3.10-0.0.2-20190729: digest: sha256:3c5146185f9a4dcebf2c799d2e60a7b1d45a27013057386b2639a8cad81750a6 size: 954
+***** 3.7.1 *****
+Sending build context to Docker daemon  185.3kB
+Step 1/16 : FROM koichiroiijima/alpine_base:3.10-0.0.2-20190729
+ ---> c8f39cd4c319
+Step 2/16 : ARG IMAGE_NAME=python_base
+ ---> Using cache
+ ---> 4bb7c16a9ebf
+Step 3/16 : ARG IMAGE_VERSION=3.7.4-alpine3.10-0.0.2
+ ---> Using cache
+ ---> 1f0f7519cbb9
+Step 4/16 : ARG PYTHON_VERSION=3.7.4
+ ---> Using cache
+ ---> cef77111c862
+Step 5/16 : LABEL     NAME=${IMAGE_NAME}     VERSION=${IMANGE_VERSION}     PYTHON_VERSION=${PYTHON_VERSION}
+ ---> Using cache
+ ---> ce6962e837cc
+Step 6/16 : RUN set -ex     &&     apk add --no-cache --update         python3     &&     ln -sfn $(which python3) /usr/bin/python     &&     ln -sfn $(which pip3) /usr/bin/pip     &&     python --version     &&     pip --version
+ ---> Using cache
+ ---> b0a44071e404
+Step 7/16 : ENV PYENV_ROOT=/root/.pyenv
+ ---> Using cache
+ ---> 75baf7ed2caf
+Step 8/16 : ENV PATH=${PATH}:/root/.pyenv/bin
+ ---> Using cache
+ ---> 914dafd2f5d9
+Step 9/16 : RUN set -ex     &&     git clone https://github.com/pyenv/pyenv.git ~/.pyenv     &&     echo -e 'if command -v pyenv 1>/dev/null 2>&1; then\n  eval "$(pyenv init -)"\nfi' >> /etc/.bashrc     &&     source /etc/.bashrc     &&     pyenv version
+ ---> Using cache
+ ---> 70d02921bd66
+Step 10/16 : RUN set -ex     &&     apk add --no-cache         libffi         "openssl<1.1" 	bzip2         zlib         readline         sqlite     &&     apk add --no-cache --virtual .pyenv_build_deps         build-base         libffi-dev         "openssl-dev<1.1"         bzip2-dev         zlib-dev         readline-dev         sqlite-dev
+ ---> Using cache
+ ---> 26d7df48a4cf
+Step 11/16 : RUN set -ex     &&     source /etc/.bashrc     &&     pyenv install ${PYTHON_VERSION}     &&     pyenv global ${PYTHON_VERSION}     &&     python --version
+ ---> Using cache
+ ---> f37bc30aeac6
+Step 12/16 : RUN set -ex     &&     source /etc/.bashrc     &&     pyenv global ${PYTHON_VERSION}     &&     python --version     &&     apk add --no-cache openblas lapack     &&     apk add --no-cache openblas-dev --virtual .pip_build_deps     &&     pip install -U --no-cache-dir pip     &&     pip install -U --no-cache-dir         setuptools         wheel         pipenv         toml         PyYAML     &&     pipenv install --python ${PYTHON_VERSION}     &&     pipenv run python --version     &&     pip install -U --no-cache-dir         Cython         numpy         pandas         scipy         scikit-learn         pytest         pytest-cov         flake8         flake8-docstrings         flake8-import-order         pep8-naming         pyformat         isort         redis         boto3         Flask         PyYAML         jsonschema         jupyterlab
+ ---> Using cache
+ ---> 4052c050430e
+Step 13/16 : ENV ENV=/root/.bashrc
+ ---> Using cache
+ ---> 4204a6982756
+Step 14/16 : RUN set -ex     &&     mv /etc/.bashrc /root/.bashrc
+ ---> Using cache
+ ---> 498feba0a945
+Step 15/16 : RUN set -ex     &&     apk del .pyenv_build_deps     &&     apk del .pip_build_deps     &&     apk cache clean     &&     rm -rf ~/.cache/*     &&     rm -rf ~/.pyenv/cache/*     &&     rm -rf /var/cache/apk/*
+ ---> Using cache
+ ---> f32c8e3fdf44
+Step 16/16 : CMD ["python"]
+ ---> Using cache
+ ---> c7f90e9ec1dd
+Successfully built 1552f4015aa0
+Successfully tagged python_base:3.7.1-alpine3.10-0.0.2-20190729
+Authenticating with existing credentials...
+Login Succeeded
+The push refers to repository [docker.io/koichiroiijima/python_base]
+a3e76fd52bc2: Preparing
+d52d5ef8daa9: Preparing
+1bfeebd65323: Preparing
+d52d5ef8daa9: Layer already exists
+1bfeebd65323: Layer already exists
+a3e76fd52bc2: Layer already exists
+3.7.1-alpine3.10-0.0.2-20190729: digest: sha256:33d1f02730fcad6f6154b48c94ffcd2d7fa406b565b8833831dc4a4009e6092a size: 954
+***** 3.6.7 *****
+Sending build context to Docker daemon  186.4kB
+Step 1/16 : FROM koichiroiijima/alpine_base:3.10-0.0.2-20190729
+ ---> c8f39cd4c319
+Step 2/16 : ARG IMAGE_NAME=python_base
+ ---> Using cache
+ ---> 4bb7c16a9ebf
+Step 3/16 : ARG IMAGE_VERSION=3.7.4-alpine3.10-0.0.2
+ ---> Using cache
+ ---> 1f0f7519cbb9
+Step 4/16 : ARG PYTHON_VERSION=3.7.4
+ ---> Using cache
+ ---> cef77111c862
+Step 5/16 : LABEL     NAME=${IMAGE_NAME}     VERSION=${IMANGE_VERSION}     PYTHON_VERSION=${PYTHON_VERSION}
+ ---> Using cache
+ ---> 6239a1cdd66e
+Step 6/16 : RUN set -ex     &&     apk add --no-cache --update         python3     &&     ln -sfn $(which python3) /usr/bin/python     &&     ln -sfn $(which pip3) /usr/bin/pip     &&     python --version     &&     pip --version
+ ---> Using cache
+ ---> 579eb70bb939
+Step 7/16 : ENV PYENV_ROOT=/root/.pyenv
+ ---> Using cache
+ ---> 7b1c96e608e3
+Step 8/16 : ENV PATH=${PATH}:/root/.pyenv/bin
+ ---> Using cache
+ ---> 92e23ba888c3
+Step 9/16 : RUN set -ex     &&     git clone https://github.com/pyenv/pyenv.git ~/.pyenv     &&     echo -e 'if command -v pyenv 1>/dev/null 2>&1; then\n  eval "$(pyenv init -)"\nfi' >> /etc/.bashrc     &&     source /etc/.bashrc     &&     pyenv version
+ ---> Using cache
+ ---> 9f830a875a8a
+Step 10/16 : RUN set -ex     &&     apk add --no-cache         libffi         "openssl<1.1" 	bzip2         zlib         readline         sqlite     &&     apk add --no-cache --virtual .pyenv_build_deps         build-base         libffi-dev         "openssl-dev<1.1"         bzip2-dev         zlib-dev         readline-dev         sqlite-dev
+ ---> Using cache
+ ---> 58c93b769ef8
+Step 11/16 : RUN set -ex     &&     source /etc/.bashrc     &&     pyenv install ${PYTHON_VERSION}     &&     pyenv global ${PYTHON_VERSION}     &&     python --version
+ ---> Using cache
+ ---> 3b8469ec340e
+Step 12/16 : RUN set -ex     &&     source /etc/.bashrc     &&     pyenv global ${PYTHON_VERSION}     &&     python --version     &&     apk add --no-cache openblas lapack     &&     apk add --no-cache openblas-dev --virtual .pip_build_deps     &&     pip install -U --no-cache-dir pip     &&     pip install -U --no-cache-dir         setuptools         wheel         pipenv         toml         PyYAML     &&     pipenv install --python ${PYTHON_VERSION}     &&     pipenv run python --version     &&     pip install -U --no-cache-dir         Cython         numpy         pandas         scipy         scikit-learn         pytest         pytest-cov         flake8         flake8-docstrings         flake8-import-order         pep8-naming         pyformat         isort         redis         boto3         Flask         PyYAML         jsonschema         jupyterlab
+ ---> Using cache
+ ---> a5b2bf0b97be
+Step 13/16 : ENV ENV=/root/.bashrc
+ ---> Using cache
+ ---> a62cac97faaa
+Step 14/16 : RUN set -ex     &&     mv /etc/.bashrc /root/.bashrc
+ ---> Using cache
+ ---> b8b83982ca85
+Step 15/16 : RUN set -ex     &&     apk del .pyenv_build_deps     &&     apk del .pip_build_deps     &&     apk cache clean     &&     rm -rf ~/.cache/*     &&     rm -rf ~/.pyenv/cache/*     &&     rm -rf /var/cache/apk/*
+ ---> Using cache
+ ---> 00b1c3c36e73
+Step 16/16 : CMD ["python"]
+ ---> Using cache
+ ---> b844de7dec5d
+Successfully built fc901da9abf5
+Successfully tagged python_base:3.6.7-alpine3.10-0.0.2-20190729
+Authenticating with existing credentials...
+Login Succeeded
+The push refers to repository [docker.io/koichiroiijima/python_base]
+4edead3ec538: Preparing
+d52d5ef8daa9: Preparing
+1bfeebd65323: Preparing
+4edead3ec538: Layer already exists
+d52d5ef8daa9: Layer already exists
+1bfeebd65323: Layer already exists
+3.6.7-alpine3.10-0.0.2-20190729: digest: sha256:21cd2785a3dff6455ae4fa4d1502661b5931b837157d610d437545b560b488c0 size: 954
+***** 3.5.6 *****
+Sending build context to Docker daemon  187.4kB
+Step 1/16 : FROM koichiroiijima/alpine_base:3.10-0.0.2-20190729
+ ---> c8f39cd4c319
+Step 2/16 : ARG IMAGE_NAME=python_base
+ ---> Using cache
+ ---> 4bb7c16a9ebf
+Step 3/16 : ARG IMAGE_VERSION=3.7.4-alpine3.10-0.0.2
+ ---> Using cache
+ ---> 1f0f7519cbb9
+Step 4/16 : ARG PYTHON_VERSION=3.7.4
+ ---> Using cache
+ ---> cef77111c862
+Step 5/16 : LABEL     NAME=${IMAGE_NAME}     VERSION=${IMANGE_VERSION}     PYTHON_VERSION=${PYTHON_VERSION}
+ ---> Using cache
+ ---> 27ef0e486ba4
+Step 6/16 : RUN set -ex     &&     apk add --no-cache --update         python3     &&     ln -sfn $(which python3) /usr/bin/python     &&     ln -sfn $(which pip3) /usr/bin/pip     &&     python --version     &&     pip --version
+ ---> Using cache
+ ---> 606cdaddfb4d
+Step 7/16 : ENV PYENV_ROOT=/root/.pyenv
+ ---> Using cache
+ ---> a0555cabf1cf
+Step 8/16 : ENV PATH=${PATH}:/root/.pyenv/bin
+ ---> Using cache
+ ---> 56d8c34a852d
+Step 9/16 : RUN set -ex     &&     git clone https://github.com/pyenv/pyenv.git ~/.pyenv     &&     echo -e 'if command -v pyenv 1>/dev/null 2>&1; then\n  eval "$(pyenv init -)"\nfi' >> /etc/.bashrc     &&     source /etc/.bashrc     &&     pyenv version
+ ---> Using cache
+ ---> 6cd17c02b579
+Step 10/16 : RUN set -ex     &&     apk add --no-cache         libffi         "openssl<1.1" 	bzip2         zlib         readline         sqlite     &&     apk add --no-cache --virtual .pyenv_build_deps         build-base         libffi-dev         "openssl-dev<1.1"         bzip2-dev         zlib-dev         readline-dev         sqlite-dev
+ ---> Using cache
+ ---> 4a45a6c612f2
+Step 11/16 : RUN set -ex     &&     source /etc/.bashrc     &&     pyenv install ${PYTHON_VERSION}     &&     pyenv global ${PYTHON_VERSION}     &&     python --version
+ ---> Using cache
+ ---> 6251e65487d0
+Step 12/16 : RUN set -ex     &&     source /etc/.bashrc     &&     pyenv global ${PYTHON_VERSION}     &&     python --version     &&     apk add --no-cache openblas lapack     &&     apk add --no-cache openblas-dev --virtual .pip_build_deps     &&     pip install -U --no-cache-dir pip     &&     pip install -U --no-cache-dir         setuptools         wheel         pipenv         toml         PyYAML     &&     pipenv install --python ${PYTHON_VERSION}     &&     pipenv run python --version     &&     pip install -U --no-cache-dir         Cython         numpy         pandas         scipy         scikit-learn         pytest         pytest-cov         flake8         flake8-docstrings         flake8-import-order         pep8-naming         pyformat         isort         redis         boto3         Flask         PyYAML         jsonschema         jupyterlab
+ ---> Using cache
+ ---> 1497cb2dd6b6
+Step 13/16 : ENV ENV=/root/.bashrc
+ ---> Using cache
+ ---> 8f94793f76b3
+Step 14/16 : RUN set -ex     &&     mv /etc/.bashrc /root/.bashrc
+ ---> Using cache
+ ---> 9ed789e4bbe9
+Step 15/16 : RUN set -ex     &&     apk del .pyenv_build_deps     &&     apk del .pip_build_deps     &&     apk cache clean     &&     rm -rf ~/.cache/*     &&     rm -rf ~/.pyenv/cache/*     &&     rm -rf /var/cache/apk/*
+ ---> Using cache
+ ---> 2de9cf70a21c
+Step 16/16 : CMD ["python"]
+ ---> Using cache
+ ---> a95bcb0b5233
+Successfully built e018251693ac
+Successfully tagged python_base:3.5.6-alpine3.10-0.0.2-20190729
+Authenticating with existing credentials...
+Login Succeeded
+The push refers to repository [docker.io/koichiroiijima/python_base]
+ca5e2bb4c7bc: Preparing
+d52d5ef8daa9: Preparing
+1bfeebd65323: Preparing
+ca5e2bb4c7bc: Layer already exists
+d52d5ef8daa9: Layer already exists
+1bfeebd65323: Layer already exists
+3.5.6-alpine3.10-0.0.2-20190729: digest: sha256:3cecca9a5a930463c382f03653127433deeecc52f725781dbc32719baf2ed1f0 size: 954
+***** 3.7.0 *****
+Sending build context to Docker daemon  187.9kB
+Step 1/16 : FROM koichiroiijima/alpine_base:3.10-0.0.2-20190729
+ ---> c8f39cd4c319
+Step 2/16 : ARG IMAGE_NAME=python_base
+ ---> Using cache
+ ---> 4bb7c16a9ebf
+Step 3/16 : ARG IMAGE_VERSION=3.7.4-alpine3.10-0.0.2
+ ---> Using cache
+ ---> 1f0f7519cbb9
+Step 4/16 : ARG PYTHON_VERSION=3.7.4
+ ---> Using cache
+ ---> cef77111c862
+Step 5/16 : LABEL     NAME=${IMAGE_NAME}     VERSION=${IMANGE_VERSION}     PYTHON_VERSION=${PYTHON_VERSION}
+ ---> Using cache
+ ---> 063a0243dd4c
+Step 6/16 : RUN set -ex     &&     apk add --no-cache --update         python3     &&     ln -sfn $(which python3) /usr/bin/python     &&     ln -sfn $(which pip3) /usr/bin/pip     &&     python --version     &&     pip --version
+ ---> Using cache
+ ---> 85f9ae71f2bb
+Step 7/16 : ENV PYENV_ROOT=/root/.pyenv
+ ---> Using cache
+ ---> 229931f6993f
+Step 8/16 : ENV PATH=${PATH}:/root/.pyenv/bin
+ ---> Using cache
+ ---> c16e8a80ac88
+Step 9/16 : RUN set -ex     &&     git clone https://github.com/pyenv/pyenv.git ~/.pyenv     &&     echo -e 'if command -v pyenv 1>/dev/null 2>&1; then\n  eval "$(pyenv init -)"\nfi' >> /etc/.bashrc     &&     source /etc/.bashrc     &&     pyenv version
+ ---> Using cache
+ ---> f8cfd0b11a5a
+Step 10/16 : RUN set -ex     &&     apk add --no-cache         libffi         "openssl<1.1" 	bzip2         zlib         readline         sqlite     &&     apk add --no-cache --virtual .pyenv_build_deps         build-base         libffi-dev         "openssl-dev<1.1"         bzip2-dev         zlib-dev         readline-dev         sqlite-dev
+ ---> Using cache
+ ---> 16120316b785
+Step 11/16 : RUN set -ex     &&     source /etc/.bashrc     &&     pyenv install ${PYTHON_VERSION}     &&     pyenv global ${PYTHON_VERSION}     &&     python --version
+ ---> Using cache
+ ---> ca1423e38595
+Step 12/16 : RUN set -ex     &&     source /etc/.bashrc     &&     pyenv global ${PYTHON_VERSION}     &&     python --version     &&     apk add --no-cache openblas lapack     &&     apk add --no-cache openblas-dev --virtual .pip_build_deps     &&     pip install -U --no-cache-dir pip     &&     pip install -U --no-cache-dir         setuptools         wheel         pipenv         toml         PyYAML     &&     pipenv install --python ${PYTHON_VERSION}     &&     pipenv run python --version     &&     pip install -U --no-cache-dir         Cython         numpy         pandas         scipy         scikit-learn         pytest         pytest-cov         flake8         flake8-docstrings         flake8-import-order         pep8-naming         pyformat         isort         redis         boto3         Flask         PyYAML         jsonschema         jupyterlab
+ ---> Using cache
+ ---> 8256283455b4
+Step 13/16 : ENV ENV=/root/.bashrc
+ ---> Using cache
+ ---> 665277ed6011
+Step 14/16 : RUN set -ex     &&     mv /etc/.bashrc /root/.bashrc
+ ---> Using cache
+ ---> 9ec529f641f9
+Step 15/16 : RUN set -ex     &&     apk del .pyenv_build_deps     &&     apk del .pip_build_deps     &&     apk cache clean     &&     rm -rf ~/.cache/*     &&     rm -rf ~/.pyenv/cache/*     &&     rm -rf /var/cache/apk/*
+ ---> Using cache
+ ---> 38438c6df501
+Step 16/16 : CMD ["python"]
+ ---> Using cache
+ ---> b19a52cc0fe4
+Successfully built 3de89e808194
+Successfully tagged python_base:3.7.0-alpine3.10-0.0.2-20190729
+Authenticating with existing credentials...
+Login Succeeded
+The push refers to repository [docker.io/koichiroiijima/python_base]
+1dfb87e4f31d: Preparing
+d52d5ef8daa9: Preparing
+1bfeebd65323: Preparing
+1bfeebd65323: Layer already exists
+d52d5ef8daa9: Layer already exists
+1dfb87e4f31d: Layer already exists
+3.7.0-alpine3.10-0.0.2-20190729: digest: sha256:16963cb4381e93fc1f9988d60e530667fc02f61b5ac4a81e47b6dc9bd1b3d179 size: 954
+***** 3.6.6 *****
+Sending build context to Docker daemon  188.9kB
+Step 1/16 : FROM koichiroiijima/alpine_base:3.10-0.0.2-20190729
+ ---> c8f39cd4c319
+Step 2/16 : ARG IMAGE_NAME=python_base
+ ---> Using cache
+ ---> 4bb7c16a9ebf
+Step 3/16 : ARG IMAGE_VERSION=3.7.4-alpine3.10-0.0.2
+ ---> Using cache
+ ---> 1f0f7519cbb9
+Step 4/16 : ARG PYTHON_VERSION=3.7.4
+ ---> Using cache
+ ---> cef77111c862
+Step 5/16 : LABEL     NAME=${IMAGE_NAME}     VERSION=${IMANGE_VERSION}     PYTHON_VERSION=${PYTHON_VERSION}
+ ---> Using cache
+ ---> a50df62d5e77
+Step 6/16 : RUN set -ex     &&     apk add --no-cache --update         python3     &&     ln -sfn $(which python3) /usr/bin/python     &&     ln -sfn $(which pip3) /usr/bin/pip     &&     python --version     &&     pip --version
+ ---> Using cache
+ ---> 94f70280dcf5
+Step 7/16 : ENV PYENV_ROOT=/root/.pyenv
+ ---> Using cache
+ ---> 262caaa24d7f
+Step 8/16 : ENV PATH=${PATH}:/root/.pyenv/bin
+ ---> Using cache
+ ---> 827d965dca7c
+Step 9/16 : RUN set -ex     &&     git clone https://github.com/pyenv/pyenv.git ~/.pyenv     &&     echo -e 'if command -v pyenv 1>/dev/null 2>&1; then\n  eval "$(pyenv init -)"\nfi' >> /etc/.bashrc     &&     source /etc/.bashrc     &&     pyenv version
+ ---> Using cache
+ ---> 113133ff42a4
+Step 10/16 : RUN set -ex     &&     apk add --no-cache         libffi         "openssl<1.1" 	bzip2         zlib         readline         sqlite     &&     apk add --no-cache --virtual .pyenv_build_deps         build-base         libffi-dev         "openssl-dev<1.1"         bzip2-dev         zlib-dev         readline-dev         sqlite-dev
+ ---> Using cache
+ ---> 3d56653bb203
+Step 11/16 : RUN set -ex     &&     source /etc/.bashrc     &&     pyenv install ${PYTHON_VERSION}     &&     pyenv global ${PYTHON_VERSION}     &&     python --version
+ ---> Using cache
+ ---> d17166315b1f
+Step 12/16 : RUN set -ex     &&     source /etc/.bashrc     &&     pyenv global ${PYTHON_VERSION}     &&     python --version     &&     apk add --no-cache openblas lapack     &&     apk add --no-cache openblas-dev --virtual .pip_build_deps     &&     pip install -U --no-cache-dir pip     &&     pip install -U --no-cache-dir         setuptools         wheel         pipenv         toml         PyYAML     &&     pipenv install --python ${PYTHON_VERSION}     &&     pipenv run python --version     &&     pip install -U --no-cache-dir         Cython         numpy         pandas         scipy         scikit-learn         pytest         pytest-cov         flake8         flake8-docstrings         flake8-import-order         pep8-naming         pyformat         isort         redis         boto3         Flask         PyYAML         jsonschema         jupyterlab
+ ---> Using cache
+ ---> 16f162aeea09
+Step 13/16 : ENV ENV=/root/.bashrc
+ ---> Using cache
+ ---> 7096ec3c0243
+Step 14/16 : RUN set -ex     &&     mv /etc/.bashrc /root/.bashrc
+ ---> Using cache
+ ---> 2d119ec59bf2
+Step 15/16 : RUN set -ex     &&     apk del .pyenv_build_deps     &&     apk del .pip_build_deps     &&     apk cache clean     &&     rm -rf ~/.cache/*     &&     rm -rf ~/.pyenv/cache/*     &&     rm -rf /var/cache/apk/*
+ ---> Using cache
+ ---> ad5c98579a80
+Step 16/16 : CMD ["python"]
+ ---> Using cache
+ ---> 9898219f9033
+Successfully built d64b3d170558
+Successfully tagged python_base:3.6.6-alpine3.10-0.0.2-20190729
+Authenticating with existing credentials...
+Login Succeeded
+The push refers to repository [docker.io/koichiroiijima/python_base]
+bfdd9ec84a01: Preparing
+d52d5ef8daa9: Preparing
+1bfeebd65323: Preparing
+bfdd9ec84a01: Layer already exists
+1bfeebd65323: Layer already exists
+d52d5ef8daa9: Layer already exists
+3.6.6-alpine3.10-0.0.2-20190729: digest: sha256:140e25412eb0834ceaf7e6f34943247ea71bb2814a9594e12f62cfab3c283c39 size: 954
+***** 3.6.5 *****
+Sending build context to Docker daemon    190kB
+Step 1/16 : FROM koichiroiijima/alpine_base:3.10-0.0.2-20190729
+ ---> c8f39cd4c319
+Step 2/16 : ARG IMAGE_NAME=python_base
+ ---> Using cache
+ ---> 4bb7c16a9ebf
+Step 3/16 : ARG IMAGE_VERSION=3.7.4-alpine3.10-0.0.2
+ ---> Using cache
+ ---> 1f0f7519cbb9
+Step 4/16 : ARG PYTHON_VERSION=3.7.4
+ ---> Using cache
+ ---> cef77111c862
+Step 5/16 : LABEL     NAME=${IMAGE_NAME}     VERSION=${IMANGE_VERSION}     PYTHON_VERSION=${PYTHON_VERSION}
+ ---> Using cache
+ ---> be267a9f9ae7
+Step 6/16 : RUN set -ex     &&     apk add --no-cache --update         python3     &&     ln -sfn $(which python3) /usr/bin/python     &&     ln -sfn $(which pip3) /usr/bin/pip     &&     python --version     &&     pip --version
+ ---> Using cache
+ ---> 423835653bff
+Step 7/16 : ENV PYENV_ROOT=/root/.pyenv
+ ---> Using cache
+ ---> bf0cbf983e66
+Step 8/16 : ENV PATH=${PATH}:/root/.pyenv/bin
+ ---> Using cache
+ ---> 82385ebe4f4b
+Step 9/16 : RUN set -ex     &&     git clone https://github.com/pyenv/pyenv.git ~/.pyenv     &&     echo -e 'if command -v pyenv 1>/dev/null 2>&1; then\n  eval "$(pyenv init -)"\nfi' >> /etc/.bashrc     &&     source /etc/.bashrc     &&     pyenv version
+ ---> Using cache
+ ---> cc540da943c2
+Step 10/16 : RUN set -ex     &&     apk add --no-cache         libffi         "openssl<1.1" 	bzip2         zlib         readline         sqlite     &&     apk add --no-cache --virtual .pyenv_build_deps         build-base         libffi-dev         "openssl-dev<1.1"         bzip2-dev         zlib-dev         readline-dev         sqlite-dev
+ ---> Using cache
+ ---> 7292b8e5e1c1
+Step 11/16 : RUN set -ex     &&     source /etc/.bashrc     &&     pyenv install ${PYTHON_VERSION}     &&     pyenv global ${PYTHON_VERSION}     &&     python --version
+ ---> Using cache
+ ---> 2c0ccf638c99
+Step 12/16 : RUN set -ex     &&     source /etc/.bashrc     &&     pyenv global ${PYTHON_VERSION}     &&     python --version     &&     apk add --no-cache openblas lapack     &&     apk add --no-cache openblas-dev --virtual .pip_build_deps     &&     pip install -U --no-cache-dir pip     &&     pip install -U --no-cache-dir         setuptools         wheel         pipenv         toml         PyYAML     &&     pipenv install --python ${PYTHON_VERSION}     &&     pipenv run python --version     &&     pip install -U --no-cache-dir         Cython         numpy         pandas         scipy         scikit-learn         pytest         pytest-cov         flake8         flake8-docstrings         flake8-import-order         pep8-naming         pyformat         isort         redis         boto3         Flask         PyYAML         jsonschema         jupyterlab
+ ---> Using cache
+ ---> bf0b4c172792
+Step 13/16 : ENV ENV=/root/.bashrc
+ ---> Using cache
+ ---> 06f9ce8577dd
+Step 14/16 : RUN set -ex     &&     mv /etc/.bashrc /root/.bashrc
+ ---> Using cache
+ ---> 25b900c5439b
+Step 15/16 : RUN set -ex     &&     apk del .pyenv_build_deps     &&     apk del .pip_build_deps     &&     apk cache clean     &&     rm -rf ~/.cache/*     &&     rm -rf ~/.pyenv/cache/*     &&     rm -rf /var/cache/apk/*
+ ---> Using cache
+ ---> f14835d2e3a2
+Step 16/16 : CMD ["python"]
+ ---> Using cache
+ ---> d31737edf693
+Successfully built 15eed9d7fefc
+Successfully tagged python_base:3.6.5-alpine3.10-0.0.2-20190729
+Authenticating with existing credentials...
+Login Succeeded
+The push refers to repository [docker.io/koichiroiijima/python_base]
+9bacf7a26152: Preparing
+d52d5ef8daa9: Preparing
+1bfeebd65323: Preparing
+d52d5ef8daa9: Layer already exists
+1bfeebd65323: Layer already exists
+9bacf7a26152: Layer already exists
+3.6.5-alpine3.10-0.0.2-20190729: digest: sha256:5306cfdba1b306c8be44230cfbe9ba1f8993bbe58ad12dae48e7fe3055a1829e size: 954
+***** 3.5.5 *****
+Sending build context to Docker daemon    191kB
+Step 1/16 : FROM koichiroiijima/alpine_base:3.10-0.0.2-20190729
+ ---> c8f39cd4c319
+Step 2/16 : ARG IMAGE_NAME=python_base
+ ---> Using cache
+ ---> 4bb7c16a9ebf
+Step 3/16 : ARG IMAGE_VERSION=3.7.4-alpine3.10-0.0.2
+ ---> Using cache
+ ---> 1f0f7519cbb9
+Step 4/16 : ARG PYTHON_VERSION=3.7.4
+ ---> Using cache
+ ---> cef77111c862
+Step 5/16 : LABEL     NAME=${IMAGE_NAME}     VERSION=${IMANGE_VERSION}     PYTHON_VERSION=${PYTHON_VERSION}
+ ---> Using cache
+ ---> a4e514c90fda
+Step 6/16 : RUN set -ex     &&     apk add --no-cache --update         python3     &&     ln -sfn $(which python3) /usr/bin/python     &&     ln -sfn $(which pip3) /usr/bin/pip     &&     python --version     &&     pip --version
+ ---> Using cache
+ ---> 916f347d8227
+Step 7/16 : ENV PYENV_ROOT=/root/.pyenv
+ ---> Using cache
+ ---> fe181996bd64
+Step 8/16 : ENV PATH=${PATH}:/root/.pyenv/bin
+ ---> Using cache
+ ---> 5fe2559bb37b
+Step 9/16 : RUN set -ex     &&     git clone https://github.com/pyenv/pyenv.git ~/.pyenv     &&     echo -e 'if command -v pyenv 1>/dev/null 2>&1; then\n  eval "$(pyenv init -)"\nfi' >> /etc/.bashrc     &&     source /etc/.bashrc     &&     pyenv version
+ ---> Using cache
+ ---> 743ed583618f
+Step 10/16 : RUN set -ex     &&     apk add --no-cache         libffi         "openssl<1.1" 	bzip2         zlib         readline         sqlite     &&     apk add --no-cache --virtual .pyenv_build_deps         build-base         libffi-dev         "openssl-dev<1.1"         bzip2-dev         zlib-dev         readline-dev         sqlite-dev
+ ---> Using cache
+ ---> a440cfe6baf0
+Step 11/16 : RUN set -ex     &&     source /etc/.bashrc     &&     pyenv install ${PYTHON_VERSION}     &&     pyenv global ${PYTHON_VERSION}     &&     python --version
+ ---> Using cache
+ ---> 3a9f3facd561
+Step 12/16 : RUN set -ex     &&     source /etc/.bashrc     &&     pyenv global ${PYTHON_VERSION}     &&     python --version     &&     apk add --no-cache openblas lapack     &&     apk add --no-cache openblas-dev --virtual .pip_build_deps     &&     pip install -U --no-cache-dir pip     &&     pip install -U --no-cache-dir         setuptools         wheel         pipenv         toml         PyYAML     &&     pipenv install --python ${PYTHON_VERSION}     &&     pipenv run python --version     &&     pip install -U --no-cache-dir         Cython         numpy         pandas         scipy         scikit-learn         pytest         pytest-cov         flake8         flake8-docstrings         flake8-import-order         pep8-naming         pyformat         isort         redis         boto3         Flask         PyYAML         jsonschema         jupyterlab
+ ---> Using cache
+ ---> 6defc998e4b6
+Step 13/16 : ENV ENV=/root/.bashrc
+ ---> Using cache
+ ---> d34a1d5591db
+Step 14/16 : RUN set -ex     &&     mv /etc/.bashrc /root/.bashrc
+ ---> Using cache
+ ---> ad28a5f3d677
+Step 15/16 : RUN set -ex     &&     apk del .pyenv_build_deps     &&     apk del .pip_build_deps     &&     apk cache clean     &&     rm -rf ~/.cache/*     &&     rm -rf ~/.pyenv/cache/*     &&     rm -rf /var/cache/apk/*
+ ---> Using cache
+ ---> 4e8f0e156c54
+Step 16/16 : CMD ["python"]
+ ---> Using cache
+ ---> 352e1c089675
+Successfully built c4251b4e7c65
+Successfully tagged python_base:3.5.5-alpine3.10-0.0.2-20190729
+Authenticating with existing credentials...
+Login Succeeded
+The push refers to repository [docker.io/koichiroiijima/python_base]
+82d10cdda62c: Preparing
+d52d5ef8daa9: Preparing
+1bfeebd65323: Preparing
+82d10cdda62c: Layer already exists
+d52d5ef8daa9: Layer already exists
+1bfeebd65323: Layer already exists
+3.5.5-alpine3.10-0.0.2-20190729: digest: sha256:2aa753951a566568b1b7ed9a18ff312f3931864c1ebc9610cdb7f0a2f06ec071 size: 954
+***** 3.6.4 *****
+Sending build context to Docker daemon    192kB
+Step 1/16 : FROM koichiroiijima/alpine_base:3.10-0.0.2-20190729
+ ---> c8f39cd4c319
+Step 2/16 : ARG IMAGE_NAME=python_base
+ ---> Using cache
+ ---> 4bb7c16a9ebf
+Step 3/16 : ARG IMAGE_VERSION=3.7.4-alpine3.10-0.0.2
+ ---> Using cache
+ ---> 1f0f7519cbb9
+Step 4/16 : ARG PYTHON_VERSION=3.7.4
+ ---> Using cache
+ ---> cef77111c862
+Step 5/16 : LABEL     NAME=${IMAGE_NAME}     VERSION=${IMANGE_VERSION}     PYTHON_VERSION=${PYTHON_VERSION}
+ ---> Using cache
+ ---> 402c80c602f2
+Step 6/16 : RUN set -ex     &&     apk add --no-cache --update         python3     &&     ln -sfn $(which python3) /usr/bin/python     &&     ln -sfn $(which pip3) /usr/bin/pip     &&     python --version     &&     pip --version
+ ---> Using cache
+ ---> c27fbdc2acc8
+Step 7/16 : ENV PYENV_ROOT=/root/.pyenv
+ ---> Using cache
+ ---> 9ab33906d879
+Step 8/16 : ENV PATH=${PATH}:/root/.pyenv/bin
+ ---> Using cache
+ ---> 7eba1fbe6587
+Step 9/16 : RUN set -ex     &&     git clone https://github.com/pyenv/pyenv.git ~/.pyenv     &&     echo -e 'if command -v pyenv 1>/dev/null 2>&1; then\n  eval "$(pyenv init -)"\nfi' >> /etc/.bashrc     &&     source /etc/.bashrc     &&     pyenv version
+ ---> Using cache
+ ---> 2df31358a90f
+Step 10/16 : RUN set -ex     &&     apk add --no-cache         libffi         "openssl<1.1" 	bzip2         zlib         readline         sqlite     &&     apk add --no-cache --virtual .pyenv_build_deps         build-base         libffi-dev         "openssl-dev<1.1"         bzip2-dev         zlib-dev         readline-dev         sqlite-dev
+ ---> Using cache
+ ---> 35aac8b49394
+Step 11/16 : RUN set -ex     &&     source /etc/.bashrc     &&     pyenv install ${PYTHON_VERSION}     &&     pyenv global ${PYTHON_VERSION}     &&     python --version
+ ---> Using cache
+ ---> a9049663fe5f
+Step 12/16 : RUN set -ex     &&     source /etc/.bashrc     &&     pyenv global ${PYTHON_VERSION}     &&     python --version     &&     apk add --no-cache openblas lapack     &&     apk add --no-cache openblas-dev --virtual .pip_build_deps     &&     pip install -U --no-cache-dir pip     &&     pip install -U --no-cache-dir         setuptools         wheel         pipenv         toml         PyYAML     &&     pipenv install --python ${PYTHON_VERSION}     &&     pipenv run python --version     &&     pip install -U --no-cache-dir         Cython         numpy         pandas         scipy         scikit-learn         pytest         pytest-cov         flake8         flake8-docstrings         flake8-import-order         pep8-naming         pyformat         isort         redis         boto3         Flask         PyYAML         jsonschema         jupyterlab
+ ---> Using cache
+ ---> a5a56fd3a772
+Step 13/16 : ENV ENV=/root/.bashrc
+ ---> Using cache
+ ---> fb7c823b4cd3
+Step 14/16 : RUN set -ex     &&     mv /etc/.bashrc /root/.bashrc
+ ---> Using cache
+ ---> b2ddfbb54605
+Step 15/16 : RUN set -ex     &&     apk del .pyenv_build_deps     &&     apk del .pip_build_deps     &&     apk cache clean     &&     rm -rf ~/.cache/*     &&     rm -rf ~/.pyenv/cache/*     &&     rm -rf /var/cache/apk/*
+ ---> Using cache
+ ---> 6aa22aad7fa7
+Step 16/16 : CMD ["python"]
+ ---> Using cache
+ ---> 38798037de76
+Successfully built 30916580772b
+Successfully tagged python_base:3.6.4-alpine3.10-0.0.2-20190729
+Authenticating with existing credentials...
+Login Succeeded
+The push refers to repository [docker.io/koichiroiijima/python_base]
+13735eb744c6: Preparing
+d52d5ef8daa9: Preparing
+1bfeebd65323: Preparing
+13735eb744c6: Layer already exists
+d52d5ef8daa9: Layer already exists
+1bfeebd65323: Layer already exists
+3.6.4-alpine3.10-0.0.2-20190729: digest: sha256:88132322dc531364612543cae252b4b9f18fa3e7cd4cd10950de3133ae4cc42a size: 954
+***** 3.6.3 *****
+Sending build context to Docker daemon  192.5kB
+Step 1/16 : FROM koichiroiijima/alpine_base:3.10-0.0.2-20190729
+ ---> c8f39cd4c319
+Step 2/16 : ARG IMAGE_NAME=python_base
+ ---> Using cache
+ ---> 4bb7c16a9ebf
+Step 3/16 : ARG IMAGE_VERSION=3.7.4-alpine3.10-0.0.2
+ ---> Using cache
+ ---> 1f0f7519cbb9
+Step 4/16 : ARG PYTHON_VERSION=3.7.4
+ ---> Using cache
+ ---> cef77111c862
+Step 5/16 : LABEL     NAME=${IMAGE_NAME}     VERSION=${IMANGE_VERSION}     PYTHON_VERSION=${PYTHON_VERSION}
+ ---> Using cache
+ ---> a8e97f8c15bb
+Step 6/16 : RUN set -ex     &&     apk add --no-cache --update         python3     &&     ln -sfn $(which python3) /usr/bin/python     &&     ln -sfn $(which pip3) /usr/bin/pip     &&     python --version     &&     pip --version
+ ---> Using cache
+ ---> b9c7116bd6b7
+Step 7/16 : ENV PYENV_ROOT=/root/.pyenv
+ ---> Using cache
+ ---> c48aa9822b94
+Step 8/16 : ENV PATH=${PATH}:/root/.pyenv/bin
+ ---> Using cache
+ ---> f3ed417c0131
+Step 9/16 : RUN set -ex     &&     git clone https://github.com/pyenv/pyenv.git ~/.pyenv     &&     echo -e 'if command -v pyenv 1>/dev/null 2>&1; then\n  eval "$(pyenv init -)"\nfi' >> /etc/.bashrc     &&     source /etc/.bashrc     &&     pyenv version
+ ---> Using cache
+ ---> 17df261cd16c
+Step 10/16 : RUN set -ex     &&     apk add --no-cache         libffi         "openssl<1.1" 	bzip2         zlib         readline         sqlite     &&     apk add --no-cache --virtual .pyenv_build_deps         build-base         libffi-dev         "openssl-dev<1.1"         bzip2-dev         zlib-dev         readline-dev         sqlite-dev
+ ---> Using cache
+ ---> 90ff4f1b6c8d
+Step 11/16 : RUN set -ex     &&     source /etc/.bashrc     &&     pyenv install ${PYTHON_VERSION}     &&     pyenv global ${PYTHON_VERSION}     &&     python --version
+ ---> Using cache
+ ---> a2803b88b3d7
+Step 12/16 : RUN set -ex     &&     source /etc/.bashrc     &&     pyenv global ${PYTHON_VERSION}     &&     python --version     &&     apk add --no-cache openblas lapack     &&     apk add --no-cache openblas-dev --virtual .pip_build_deps     &&     pip install -U --no-cache-dir pip     &&     pip install -U --no-cache-dir         setuptools         wheel         pipenv         toml         PyYAML     &&     pipenv install --python ${PYTHON_VERSION}     &&     pipenv run python --version     &&     pip install -U --no-cache-dir         Cython         numpy         pandas         scipy         scikit-learn         pytest         pytest-cov         flake8         flake8-docstrings         flake8-import-order         pep8-naming         pyformat         isort         redis         boto3         Flask         PyYAML         jsonschema         jupyterlab
+ ---> Using cache
+ ---> 9d2b093000f8
+Step 13/16 : ENV ENV=/root/.bashrc
+ ---> Using cache
+ ---> b2326f6f7ef3
+Step 14/16 : RUN set -ex     &&     mv /etc/.bashrc /root/.bashrc
+ ---> Using cache
+ ---> 9437f07b24f4
+Step 15/16 : RUN set -ex     &&     apk del .pyenv_build_deps     &&     apk del .pip_build_deps     &&     apk cache clean     &&     rm -rf ~/.cache/*     &&     rm -rf ~/.pyenv/cache/*     &&     rm -rf /var/cache/apk/*
+ ---> Using cache
+ ---> eb07a32f1c42
+Step 16/16 : CMD ["python"]
+ ---> Using cache
+ ---> f1ec023f31ac
+Successfully built dabf0edf3a67
+Successfully tagged python_base:3.6.3-alpine3.10-0.0.2-20190729
+Authenticating with existing credentials...
+Login Succeeded
+The push refers to repository [docker.io/koichiroiijima/python_base]
+f363e9eb189b: Preparing
+d52d5ef8daa9: Preparing
+1bfeebd65323: Preparing
+f363e9eb189b: Layer already exists
+1bfeebd65323: Layer already exists
+d52d5ef8daa9: Layer already exists
+3.6.3-alpine3.10-0.0.2-20190729: digest: sha256:e82e2d5376d1ae83e450e9c58c995fb86d4fbcddc6ba2feb1e31e9c97cb75e20 size: 954
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     f363e9eb189b: Pushed
+3.6.3-alpine3.10-0.0.2-20190729: digest: sha256:0c7835d725b6a15a89742eb36ac412bc950241eef2fc21474b0db485f27308d1 size: 954
