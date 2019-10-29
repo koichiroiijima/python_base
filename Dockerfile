@@ -8,6 +8,12 @@ LABEL \
     NAME=${IMAGE_NAME} \
     VERSION=${IMANGE_VERSION} \
     PYTHON_VERSION=${PYTHON_VERSION}
+ENV LC_ALL=C.UTF-8
+ENV LANG=C.UTF-8
+ENV PYENV_ROOT=/root/.pyenv
+ENV PATH=/root/.pyenv/bin:/root/.pyenv/shims/:${PATH}
+ENV ENV=/root/.bashrc
+SHELL ["/bin/bash", "-c"]
 
 # Install System Python
 RUN set -ex \
@@ -23,14 +29,8 @@ RUN set -ex \
     && \
     python --version \
     && \
-    pip --version
-
+    pip --version \
 # Install pyenv
-ENV PYENV_ROOT=/root/.pyenv
-ENV PATH=${PATH}:/root/.pyenv/bin
-ENV ENV=/root/.bashrc
-SHELL ["/bin/bash", "-c"]
-RUN set -ex \
     && \
     git clone https://github.com/pyenv/pyenv.git ~/.pyenv \
     && \
@@ -40,11 +40,8 @@ RUN set -ex \
     && \
     source /root/.bashrc \
     && \
-    pyenv version
-
-RUN set -ex \
-    && \
-    apt-get update \
+    pyenv version \
+# Install libraries
     && \
     apt-get install  --no-install-recommends -y \
     make \
@@ -64,9 +61,8 @@ RUN set -ex \
     libffi-dev \
     liblzma-dev \
     python3-openssl \
-    git
+    git \
 # Install Python from pyenv
-RUN set -ex \
     && \
     source /root/.bashrc \
     && \
@@ -74,18 +70,8 @@ RUN set -ex \
     && \
     pyenv global ${PYTHON_VERSION} \
     && \
-    python --version
-
-# Install Python packages
-RUN set -ex \
-    && \
-    source /root/.bashrc \
-    && \
-    pyenv global ${PYTHON_VERSION} \
-    && \
     python --version \
-    && \
-    apt-get update \
+# Install Python packages
     && \
     apt-get install  --no-install-recommends -y \
     libopenblas-base \
@@ -101,8 +87,6 @@ RUN set -ex \
     pipenv \
     toml \
     PyYAML \
-    && \
-    pipenv install --python ${PYTHON_VERSION} \
     && \
     pipenv run python --version \
     && \ 
@@ -125,10 +109,7 @@ RUN set -ex \
     Flask \
     PyYAML \
     jsonschema \
-    jupyterlab 
-
-# Clean apk
-RUN set -ex \
+    jupyterlab \ 
     && \
     rm -rf ~/.cache/* \
     && \
