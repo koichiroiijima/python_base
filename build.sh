@@ -3,8 +3,8 @@ set -ex
 cd "$(dirname "$0")"
 
 PYTHON_VERSION=${1:-3.7.4}
-OS_VERSION="debian10.0"
-VERSION=${PYTHON_VERSION}-${OS_VERSION}-0.0.1-20191029
+OS_VERSION="debian10.1"
+VERSION=${PYTHON_VERSION}-${OS_VERSION}-0.0.2-20191029
 
 
 echo "***** ${PYTHON_VERSION} *****"

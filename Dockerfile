@@ -1,4 +1,4 @@
-FROM koichiroiijima/debian_base:10.0-0.0.1-20190804
+FROM koichiroiijima/debian_base:10.0-0.0.1-20191029
 
 ARG IMAGE_NAME=python_base
 ARG IMAGE_VERSION=3.7.4-debian10.0-0.0.1
@@ -8,12 +8,9 @@ LABEL \
     NAME=${IMAGE_NAME} \
     VERSION=${IMANGE_VERSION} \
     PYTHON_VERSION=${PYTHON_VERSION}
-ENV LC_ALL=C.UTF-8
-ENV LANG=C.UTF-8
 ENV PYENV_ROOT=/root/.pyenv
-ENV PATH=/root/.pyenv/bin:/root/.pyenv/shims/:${PATH}
-ENV ENV=/root/.bashrc
-SHELL ["/bin/bash", "-c"]
+ENV PATH=/root/.pyenv/bin:/root/.pyenv/shims/:/root/.local/bin:${PATH}
+ENV PIPENV_VENV_IN_PROJECT=1
 
 # Install System Python
 RUN set -ex \
@@ -61,10 +58,20 @@ RUN set -ex \
     libffi-dev \
     liblzma-dev \
     python3-openssl \
-    git \
-# Install Python from pyenv
     && \
-    source /root/.bashrc \
+    echo "deb http://security.debian.org/ stretch/updates main contrib non-free" >> /etc/apt/sources.list.d/stretch.list \
+    && \
+    echo "deb http://httpredir.debian.org/debian stretch main contrib non-free" >> /etc/apt/sources.list.d/stretch.list \
+    && \
+    echo "deb-src http://httpredir.debian.org/debian stretch main contrib non-free" >> /etc/apt/sources.list.d/stretch.list \
+    && \
+    echo "deb-src http://security.debian.org/ stretch/updates main contrib non-free" >> /etc/apt/sources.list.d/stretch.list \
+    && \
+    apt-get update \
+    && \
+    apt-get install --no-install-recommends -y \
+	libssl1.0-dev \
+# Install Python from pyenv
     && \
     pyenv install ${PYTHON_VERSION} \
     && \
