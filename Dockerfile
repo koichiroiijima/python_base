@@ -1,13 +1,17 @@
-FROM koichiroiijima/alpine_base:3.10-0.0.2-20190729
+FROM koichiroiijima/alpine_base:3.10.3-0.0.3-20191030
 
 ARG IMAGE_NAME=python_base
-ARG IMAGE_VERSION=3.7.4-alpine3.10-0.0.2
+ARG IMAGE_VERSION=3.7.4-alpine3.10.3-0.0.3
 ARG PYTHON_VERSION=3.7.4
 
 LABEL \
     NAME=${IMAGE_NAME} \
     VERSION=${IMANGE_VERSION} \
     PYTHON_VERSION=${PYTHON_VERSION}
+
+ENV PYENV_ROOT=/root/.pyenv
+ENV PATH=/root/.pyenv/bin:/root/.pyenv/shims/:/root/.local/bin:${PATH}
+ENV PIPENV_VENV_IN_PROJECT=1
 
 # Install System Python
 RUN set -ex \
@@ -21,22 +25,16 @@ RUN set -ex \
     && \
     python --version \
     && \
-    pip --version
-
+    pip --version \
 # Install pyenv
-ENV PYENV_ROOT=/root/.pyenv
-ENV PATH=${PATH}:/root/.pyenv/bin
-RUN set -ex \
     && \
     git clone https://github.com/pyenv/pyenv.git ~/.pyenv \
     && \
-    echo -e 'if command -v pyenv 1>/dev/null 2>&1; then\n  eval "$(pyenv init -)"\nfi' >> /etc/.bashrc \
+    echo -e 'eval "$(pyenv init -)"' >> /root/.bashrc \
     && \
-    source /etc/.bashrc \
+    source /root/.bashrc \
     && \
-    pyenv version
-
-RUN set -ex \
+    pyenv version \
     && \
     apk add --no-cache \
         libffi \
@@ -53,27 +51,15 @@ RUN set -ex \
         bzip2-dev \
         zlib-dev \
         readline-dev \
-        sqlite-dev
-
+        sqlite-dev \
 # Install Python from pyenv
-RUN set -ex \
-    && \
-    source /etc/.bashrc \
     && \
     pyenv install ${PYTHON_VERSION} \
     && \
     pyenv global ${PYTHON_VERSION} \
     && \
-    python --version
-
-# Install Python packages
-RUN set -ex \
-    && \
-    source /etc/.bashrc \
-    && \
-    pyenv global ${PYTHON_VERSION} \
-    && \
     python --version \
+# Install Python packages
     && \
     apk add --no-cache openblas lapack \
     && \
@@ -111,16 +97,8 @@ RUN set -ex \
         Flask \
         PyYAML \
         jsonschema \
-        jupyterlab 
-
-# Quick Fix
-ENV ENV=/root/.bashrc
-RUN set -ex \
-    && \
-    mv /etc/.bashrc /root/.bashrc
-
+        jupyterlab \
 # Clean apk
-RUN set -ex \
     && \
     apk del .pyenv_build_deps \
     && \
