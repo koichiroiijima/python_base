@@ -1,8 +1,8 @@
-FROM koichiroiijima/debian_base:10.0-0.0.1-20191029
+FROM koichiroiijima/debian_base:buster-20200130-slim-0.0.3-20200215
 
 ARG IMAGE_NAME=python_base
-ARG IMAGE_VERSION=3.7.4-debian10.0-0.0.1
-ARG PYTHON_VERSION=3.7.4
+ARG IMAGE_VERSION=3.8.1-debian-buster-0.0.1
+ARG PYTHON_VERSION=3.8.1
 
 LABEL \
     NAME=${IMAGE_NAME} \
@@ -116,7 +116,8 @@ RUN set -ex \
     Flask \
     PyYAML \
     jsonschema \
-    jupyterlab \ 
+    jupyterlab \
+    matplotlib \
     && \
     rm -rf ~/.cache/* \
     && \
