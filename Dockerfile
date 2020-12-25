@@ -1,8 +1,10 @@
-FROM koichiroiijima/debian_base:buster-20200130-slim-0.0.3-20200215
+ARG BASE_IMAGE=bullseye-20201209-slim-20201224
+
+FROM koichiroiijima/debian_base:${BASE_IMAGE}
 
 ARG IMAGE_NAME=python_base
-ARG IMAGE_VERSION=3.8.1-debian-buster-0.0.1
-ARG PYTHON_VERSION=3.8.1
+ARG IMAGE_VERSION=3.9.1-debian-bullseye-0.0.1
+ARG PYTHON_VERSION=3.9.1
 
 LABEL \
     NAME=${IMAGE_NAME} \
