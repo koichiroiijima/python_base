@@ -33,7 +33,7 @@ RUN set -ex \
     && \
     git clone https://github.com/pyenv/pyenv.git ~/.pyenv \
     && \
-    echo 'eval "$(pyenv init -)"' >> /root/.bashrc \
+    echo 'eval "$(/root/.pyenv/bin/pyenv init -)"' >> /root/.bashrc \
     && \
     chmod +x /root/.bashrc \
     && \
