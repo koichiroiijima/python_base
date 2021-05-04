@@ -1,13 +1,18 @@
-FROM koichiroiijima/alpine_base:3.10.3-0.0.3-20191030
+ARG BASE_IMAGE=bullseye-20210408-slim-20210504
+
+FROM koichiroiijima/debian_base:${BASE_IMAGE}
 
 ARG IMAGE_NAME=python_base
-ARG IMAGE_VERSION=3.7.4-alpine3.10.3-0.0.3
-ARG PYTHON_VERSION=3.7.4
+ARG IMAGE_VERSION=3.9.4-debian-bullseye-0.0.1
+ARG PYTHON_VERSION=3.9.4
 
 LABEL \
     NAME=${IMAGE_NAME} \
     VERSION=${IMANGE_VERSION} \
     PYTHON_VERSION=${PYTHON_VERSION}
+ENV PYENV_ROOT=/root/.pyenv
+ENV PATH=/root/.pyenv/bin:/root/.pyenv/shims/:/root/.local/bin:${PATH}
+ENV PIPENV_VENV_IN_PROJECT=1
 
 ENV PYENV_ROOT=/root/.pyenv
 ENV PATH=/root/.pyenv/bin:/root/.pyenv/shims/:/root/.local/bin:${PATH}
@@ -16,8 +21,10 @@ ENV PIPENV_VENV_IN_PROJECT=1
 # Install System Python
 RUN set -ex \
     && \
-    apk add --no-cache --update \
-        python3 \
+    apt-get update \
+    && \
+    apt-get install  --no-install-recommends -y \
+    python3 python3-pip \
     && \
     ln -sfn $(which python3) /usr/bin/python \
     && \
@@ -30,28 +37,46 @@ RUN set -ex \
     && \
     git clone https://github.com/pyenv/pyenv.git ~/.pyenv \
     && \
-    echo -e 'eval "$(pyenv init -)"' >> /root/.bashrc \
+    echo 'eval "$(/root/.pyenv/bin/pyenv init -)"' >> /root/.bashrc \
+    && \
+    chmod +x /root/.bashrc \
     && \
     source /root/.bashrc \
     && \
     pyenv version \
+# Install libraries
     && \
-    apk add --no-cache \
-        libffi \
-        "openssl<1.1" \
-	bzip2 \
-        zlib \
-        readline \
-        sqlite \
+    apt-get install  --no-install-recommends -y \
+    make \
+    build-essential \
+    libssl-dev \
+    zlib1g-dev \
+    libbz2-dev \
+    libreadline-dev \
+    libsqlite3-dev \
+    wget \
+    curl \
+    llvm \
+    libncurses5-dev \
+    libncursesw5-dev \
+    xz-utils \
+    tk-dev \
+    libffi-dev \
+    liblzma-dev \
+    python3-openssl \
     && \
-    apk add --no-cache --virtual .pyenv_build_deps \
-        build-base \
-        libffi-dev \
-        "openssl-dev<1.1" \
-        bzip2-dev \
-        zlib-dev \
-        readline-dev \
-        sqlite-dev \
+    echo "deb http://security.debian.org/ stretch/updates main contrib non-free" >> /etc/apt/sources.list.d/stretch.list \
+    && \
+    echo "deb http://httpredir.debian.org/debian stretch main contrib non-free" >> /etc/apt/sources.list.d/stretch.list \
+    && \
+    echo "deb-src http://httpredir.debian.org/debian stretch main contrib non-free" >> /etc/apt/sources.list.d/stretch.list \
+    && \
+    echo "deb-src http://security.debian.org/ stretch/updates main contrib non-free" >> /etc/apt/sources.list.d/stretch.list \
+    && \
+    apt-get update \
+    && \
+    apt-get install --no-install-recommends -y \
+	libssl1.0-dev \
 # Install Python from pyenv
     && \
     pyenv install ${PYTHON_VERSION} \
@@ -61,55 +86,53 @@ RUN set -ex \
     python --version \
 # Install Python packages
     && \
-    apk add --no-cache openblas lapack \
-    && \
-    apk add --no-cache openblas-dev --virtual .pip_build_deps \
+    apt-get install  --no-install-recommends -y \
+    libopenblas-base \
+    libopenblas-dev \
+    liblapack3 \
+    libblas-dev \
     && \
     pip install -U --no-cache-dir pip \
     && \
     pip install -U --no-cache-dir \
-        setuptools \
-        wheel \
-        pipenv \
-        toml \
-        PyYAML \
-    && \
-    pipenv install --python ${PYTHON_VERSION} \
+    setuptools \
+    wheel \
+    pipenv \
+    toml \
+    PyYAML \
     && \
     pipenv run python --version \
     && \ 
     pip install -U --no-cache-dir \
-        Cython \
-        numpy \
-        pandas \
-        scipy \
-        scikit-learn \
-        pytest \
-        pytest-cov \
-        flake8 \
-        flake8-docstrings \
-        flake8-import-order \
-        pep8-naming \
-        pyformat \
-        isort \
-        redis \
-        boto3 \
-        Flask \
-        PyYAML \
-        jsonschema \
-        jupyterlab \
-# Clean apk
-    && \
-    apk del .pyenv_build_deps \
-    && \
-    apk del .pip_build_deps \
-    && \
-    apk cache clean \
+    Cython \
+    numpy \
+    pandas \
+    scipy \
+    scikit-learn \
+    pytest \
+    pytest-cov \
+    flake8 \
+    flake8-docstrings \
+    flake8-import-order \
+    pep8-naming \
+    pyformat \
+    isort \
+    redis \
+    boto3 \
+    Flask \
+    PyYAML \
+    jsonschema \
+    jupyterlab \
+    matplotlib \
     && \
     rm -rf ~/.cache/* \
     && \
     rm -rf ~/.pyenv/cache/* \
     && \
-    rm -rf /var/cache/apk/*
+    apt-get autoclean \
+    && \
+    apt-get clean \
+    && \
+    rm -rf /var/lib/apt/lists/*
 
 CMD ["python"]
