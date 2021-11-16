@@ -1,10 +1,10 @@
-ARG BASE_IMAGE=bullseye-20210408-slim-20210504
+ARG BASE_IMAGE=bullseye-20211011-slim-20211116
 
 FROM koichiroiijima/debian_base:${BASE_IMAGE}
 
 ARG IMAGE_NAME=python_base
-ARG IMAGE_VERSION=3.9.4-debian-bullseye-0.0.1
-ARG PYTHON_VERSION=3.9.4
+ARG IMAGE_VERSION=3.10.0-debian-bullseye-0.0.1
+ARG PYTHON_VERSION=3.10.0
 
 LABEL \
     NAME=${IMAGE_NAME} \
@@ -23,7 +23,7 @@ RUN set -ex \
     && \
     apt-get update \
     && \
-    apt-get install  --no-install-recommends -y \
+    apt-get install -y \
     python3 python3-pip \
     && \
     ln -sfn $(which python3) /usr/bin/python \
@@ -46,7 +46,7 @@ RUN set -ex \
     pyenv version \
 # Install libraries
     && \
-    apt-get install  --no-install-recommends -y \
+    apt-get install -y \
     make \
     build-essential \
     libssl-dev \
@@ -64,19 +64,7 @@ RUN set -ex \
     libffi-dev \
     liblzma-dev \
     python3-openssl \
-    && \
-    echo "deb http://security.debian.org/ stretch/updates main contrib non-free" >> /etc/apt/sources.list.d/stretch.list \
-    && \
-    echo "deb http://httpredir.debian.org/debian stretch main contrib non-free" >> /etc/apt/sources.list.d/stretch.list \
-    && \
-    echo "deb-src http://httpredir.debian.org/debian stretch main contrib non-free" >> /etc/apt/sources.list.d/stretch.list \
-    && \
-    echo "deb-src http://security.debian.org/ stretch/updates main contrib non-free" >> /etc/apt/sources.list.d/stretch.list \
-    && \
-    apt-get update \
-    && \
-    apt-get install --no-install-recommends -y \
-	libssl1.0-dev \
+	libssl-dev \
 # Install Python from pyenv
     && \
     pyenv install ${PYTHON_VERSION} \
@@ -92,38 +80,12 @@ RUN set -ex \
     liblapack3 \
     libblas-dev \
     && \
-    pip install -U --no-cache-dir pip \
+    pip install -U  pip \
     && \
     pip install -U --no-cache-dir \
     setuptools \
     wheel \
-    pipenv \
-    toml \
     PyYAML \
-    && \
-    pipenv run python --version \
-    && \ 
-    pip install -U --no-cache-dir \
-    Cython \
-    numpy \
-    pandas \
-    scipy \
-    scikit-learn \
-    pytest \
-    pytest-cov \
-    flake8 \
-    flake8-docstrings \
-    flake8-import-order \
-    pep8-naming \
-    pyformat \
-    isort \
-    redis \
-    boto3 \
-    Flask \
-    PyYAML \
-    jsonschema \
-    jupyterlab \
-    matplotlib \
     && \
     rm -rf ~/.cache/* \
     && \
