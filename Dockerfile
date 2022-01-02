@@ -16,23 +16,11 @@ ENV PIPENV_VENV_IN_PROJECT=1
 
 ENV PYENV_ROOT=/root/.pyenv
 ENV PATH=/root/.pyenv/bin:/root/.pyenv/shims/:/root/.local/bin:${PATH}
-ENV PIPENV_VENV_IN_PROJECT=1
 
 # Install System Python
 RUN set -ex \
     && \
     apt-get update \
-    && \
-    apt-get install -y \
-    python3 python3-pip \
-    && \
-    ln -sfn $(which python3) /usr/bin/python \
-    && \
-    ln -sfn $(which pip3) /usr/bin/pip \
-    && \
-    python --version \
-    && \
-    pip --version \
 # Install pyenv
     && \
     git clone https://github.com/pyenv/pyenv.git ~/.pyenv \
@@ -46,7 +34,7 @@ RUN set -ex \
     pyenv version \
 # Install libraries
     && \
-    apt-get install -y \
+    apt-get install --no-install-recommends -y \
     make \
     build-essential \
     libssl-dev \
@@ -63,8 +51,6 @@ RUN set -ex \
     tk-dev \
     libffi-dev \
     liblzma-dev \
-    python3-openssl \
-	libssl-dev \
 # Install Python from pyenv
     && \
     pyenv install ${PYTHON_VERSION} \
@@ -74,17 +60,16 @@ RUN set -ex \
     python --version \
 # Install Python packages
     && \
-    apt-get install  --no-install-recommends -y \
-    libopenblas-base \
-    libopenblas-dev \
-    liblapack3 \
-    libblas-dev \
+    pip install -U  --no-cache-dir pip \
     && \
-    pip install -U  pip \
+    pip --version \
     && \
     pip install -U --no-cache-dir \
     setuptools \
     wheel \
+    toml \
+    && \
+    pip install -U --no-cache-dir \
     PyYAML \
     && \
     rm -rf ~/.cache/* \
