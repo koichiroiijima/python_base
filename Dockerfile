@@ -1,10 +1,10 @@
-ARG BASE_IMAGE=bullseye-20211011-slim-20211116
+ARG BASE_IMAGE=bullseye-20211220-slim-20220102
 
 FROM koichiroiijima/debian_base:${BASE_IMAGE}
 
 ARG IMAGE_NAME=python_base
-ARG IMAGE_VERSION=3.10.0-debian-bullseye-0.0.1
-ARG PYTHON_VERSION=3.10.0
+ARG IMAGE_VERSION=3.10.1-debian-bullseye-0.0.1
+ARG PYTHON_VERSION=3.10.1
 
 LABEL \
     NAME=${IMAGE_NAME} \
