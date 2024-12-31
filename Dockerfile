@@ -1,10 +1,10 @@
-ARG BASE_IMAGE=bullseye-20211220-slim-20220102
+ARG BASE_IMAGE=bookworm-20241223-slim-20241231
 
 FROM koichiroiijima/debian_base:${BASE_IMAGE}
 
 ARG IMAGE_NAME=python_base
-ARG IMAGE_VERSION=3.10.1-debian-bullseye-0.0.1
-ARG PYTHON_VERSION=3.10.1
+ARG IMAGE_VERSION=3.13.1-debian-bookworm-0.0.1
+ARG PYTHON_VERSION=3.13.1
 
 LABEL \
     NAME=${IMAGE_NAME} \
@@ -68,8 +68,6 @@ RUN set -ex \
     setuptools \
     wheel \
     toml \
-    && \
-    pip install -U --no-cache-dir \
     PyYAML \
     && \
     rm -rf ~/.cache/* \

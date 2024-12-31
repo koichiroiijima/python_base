@@ -2,10 +2,10 @@
 set -ex
 cd "$(dirname "$0")"
 
-BASE_IMAGE="bullseye-20211220-slim-20220102"
-PYTHON_VERSION=${1:-3.10.1}
-OS_VERSION="debian-bullseye"
-VERSION=${PYTHON_VERSION}-${OS_VERSION}-0.0.1-20220103
+BASE_IMAGE="bookworm-20241223-slim-20241231"
+PYTHON_VERSION=${1:-3.13.1}
+OS_VERSION="debian-bookworm"
+VERSION=${PYTHON_VERSION}-${OS_VERSION}-0.0.1-20241231
 
 echo "***** ${PYTHON_VERSION} *****"
 docker build . -t python_base:${VERSION} --build-arg IMAGE_VERSION=${VERSION} --build-arg BASE_IMAGE=${BASE_IMAGE} --build-arg IMAGE_NAME="python_base" --build-arg PYTHON_VERSION=${PYTHON_VERSION}
