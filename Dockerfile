@@ -1,37 +1,38 @@
-ARG BASE_IMAGE=bookworm-20241223-slim-20241231
+ARG BASE_IMAGE=bookworm-20250811-slim-20250813
 
 FROM koichiroiijima/debian_base:${BASE_IMAGE}
 
 ARG IMAGE_NAME=python_base
-ARG IMAGE_VERSION=3.13.1-debian-bookworm-0.0.1
-ARG PYTHON_VERSION=3.13.1
+ARG IMAGE_VERSION=3.13.6-debian-bookworm-0.0.1
+ARG PYTHON_VERSION=3.13.6
 
 LABEL \
     NAME=${IMAGE_NAME} \
     VERSION=${IMANGE_VERSION} \
     PYTHON_VERSION=${PYTHON_VERSION}
-ENV PYENV_ROOT=/root/.pyenv
-ENV PATH=/root/.pyenv/bin:/root/.pyenv/shims/:/root/.local/bin:${PATH}
-ENV PIPENV_VENV_IN_PROJECT=1
 
-ENV PYENV_ROOT=/root/.pyenv
-ENV PATH=/root/.pyenv/bin:/root/.pyenv/shims/:/root/.local/bin:${PATH}
+ENV UV_ROOT=/root/.uv
+ENV PATH=/root/.uv/bin:/root/.local/bin:${PATH}
 
 # Install System Python
 RUN set -ex \
     && \
     apt-get update \
-# Install pyenv
     && \
-    git clone https://github.com/pyenv/pyenv.git ~/.pyenv \
+    apt-get -y upgrade \
     && \
-    echo 'eval "$(/root/.pyenv/bin/pyenv init -)"' >> /root/.bashrc \
+    apt-get -y dist-upgrade \
+# Install uv
+    && \
+    curl -fsSL https://github.com/astral-sh/uv/releases/download/0.8.11/uv-installer.sh | sh \
+    && \
+    echo 'export PATH=/root/.uv/bin:$PATH' >> /root/.bashrc \
     && \
     chmod +x /root/.bashrc \
     && \
     source /root/.bashrc \
     && \
-    pyenv version \
+    uv --version \
 # Install libraries
     && \
     apt-get install --no-install-recommends -y \
@@ -51,20 +52,18 @@ RUN set -ex \
     tk-dev \
     libffi-dev \
     liblzma-dev \
-# Install Python from pyenv
+# Install Python using uv
     && \
-    pyenv install ${PYTHON_VERSION} \
+    uv python install  ${PYTHON_VERSION} \
     && \
-    pyenv global ${PYTHON_VERSION} \
+    uv venv \
+    && \
+    source .venv/bin/activate \
     && \
     python --version \
-# Install Python packages
+# Install Python packages using uv
     && \
-    pip install -U  --no-cache-dir pip \
-    && \
-    pip --version \
-    && \
-    pip install -U --no-cache-dir \
+    uv pip install -U \
     setuptools \
     wheel \
     toml \
@@ -72,7 +71,7 @@ RUN set -ex \
     && \
     rm -rf ~/.cache/* \
     && \
-    rm -rf ~/.pyenv/cache/* \
+    rm -rf ${UV_ROOT}/cache/* \
     && \
     apt-get autoclean \
     && \
