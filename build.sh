@@ -2,13 +2,13 @@
 set -ex
 cd "$(dirname "$0")"
 
-BASE_IMAGE="bookworm-20250811-slim-20250813"
-PYTHON_VERSION=${1:-3.13.1}
+BASE_IMAGE="bookworm-20251117-slim-20251130"
+PYTHON_VERSION=${1:-3.14.0}
 OS_VERSION="debian-bookworm"
-VERSION=${PYTHON_VERSION}-${OS_VERSION}-0.0.1-20250813
+VERSION=${PYTHON_VERSION}-${OS_VERSION}-0.0.1-20251130
 
 echo "***** ${PYTHON_VERSION} *****"
-docker build . -t python_base:${VERSION} --build-arg IMAGE_VERSION=${VERSION} --build-arg BASE_IMAGE=${BASE_IMAGE} --build-arg IMAGE_NAME="python_base" --build-arg PYTHON_VERSION=${PYTHON_VERSION}
+docker build . --progress=plain -t python_base:${VERSION} --build-arg IMAGE_VERSION=${VERSION} --build-arg BASE_IMAGE=${BASE_IMAGE} --build-arg IMAGE_NAME="python_base" --build-arg PYTHON_VERSION=${PYTHON_VERSION}
 docker tag python_base:${VERSION} python_base:latest
 
 docker login
