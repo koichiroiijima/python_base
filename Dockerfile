@@ -6,6 +6,9 @@ ARG IMAGE_NAME=python_base
 ARG IMAGE_VERSION=3.14.0-debian-bookworm-0.0.1
 ARG PYTHON_VERSION=3.14.0
 ARG UV_VERSION=0.9.13
+ARG USERNAME=appuser
+ARG USER_ID=1000
+ARG GROUP_ID=1000
 
 LABEL \
     NAME=${IMAGE_NAME} \
@@ -16,9 +19,9 @@ USER root
 COPY docker-entrypoint.sh /usr/local/bin/docker-entrypoint.sh
 RUN chmod +x /usr/local/bin/docker-entrypoint.sh
 
-ENV UV_ROOT=/home/appuser/.uv
-ENV VIRTUAL_ENV=/home/appuser/opt/.venv
-ENV PATH=${VIRTUAL_ENV}/bin:/home/appuser/.uv/bin:/home/appuser/.local/bin:${PATH}
+ENV UV_ROOT=/home/${USERNAME}/.uv
+ENV VIRTUAL_ENV=/home/${USERNAME}/opt/.venv
+ENV PATH=${VIRTUAL_ENV}/bin:/home/${USERNAME}/.uv/bin:/home/${USERNAME}/.local/bin:${PATH}
 
 RUN set -ex \
     && \
@@ -53,19 +56,19 @@ RUN set -ex \
     && \
     apt-get clean -y
 
-USER appuser
-WORKDIR /home/appuser/opt/
+USER ${USERNAME}
+WORKDIR /home/${USERNAME}/opt/
 # Install Python using uv 
 RUN set -ex \
     # Install uv
     && \
     curl -fsSL https://github.com/astral-sh/uv/releases/download/${UV_VERSION}/uv-installer.sh | sh \
     && \
-    echo 'export PATH=/home/appuser/.uv/bin:$PATH' >> /home/appuser/.bashrc \
+    echo 'export PATH=/home/${USERNAME}/.uv/bin:$PATH' >> /home/${USERNAME}/.bashrc \
     && \
-    chmod +x /home/appuser/.bashrc \
+    chmod +x /home/${USERNAME}/.bashrc \
     && \
-    source /home/appuser/.bashrc \
+    source /home/${USERNAME}/.bashrc \
     && \
     uv --version \
     && \

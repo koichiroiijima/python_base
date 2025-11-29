@@ -6,9 +6,19 @@ BASE_IMAGE="bookworm-20251117-slim-20251130"
 PYTHON_VERSION=${1:-3.14.0}
 OS_VERSION="debian-bookworm"
 VERSION=${PYTHON_VERSION}-${OS_VERSION}-0.0.1-20251130
+UV_VERSION="0.9.13"
 
 echo "***** ${PYTHON_VERSION} *****"
-docker build . --progress=plain -t python_base:${VERSION} --build-arg IMAGE_VERSION=${VERSION} --build-arg BASE_IMAGE=${BASE_IMAGE} --build-arg IMAGE_NAME="python_base" --build-arg PYTHON_VERSION=${PYTHON_VERSION}
+docker build . --progress=plain -t python_base:${VERSION} \
+    --build-arg IMAGE_VERSION=${VERSION} \
+    --build-arg BASE_IMAGE=${BASE_IMAGE} \
+    --build-arg IMAGE_NAME="python_base" \
+    --build-arg PYTHON_VERSION=${PYTHON_VERSION} \
+    --build-arg UV_VERSION=${UV_VERSION} \
+    --build-arg USERNAME="appuser" \
+    --build-arg USER_ID=$(id -u) \
+    --build-arg GROUP_ID=$(id -g)
+    
 docker tag python_base:${VERSION} python_base:latest
 
 docker login
