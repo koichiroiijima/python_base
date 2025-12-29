@@ -1,11 +1,11 @@
-ARG BASE_IMAGE=bookworm-20251117-slim-20251130
+ARG BASE_IMAGE=bookworm-20251208-slim-20251229
 
 FROM koichiroiijima/debian_base:${BASE_IMAGE}
 
 ARG IMAGE_NAME=python_base
-ARG IMAGE_VERSION=3.14.0-debian-bookworm-0.0.1
-ARG PYTHON_VERSION=3.14.0
-ARG UV_VERSION=0.9.13
+ARG IMAGE_VERSION=3.14.2-debian-bookworm-0.0.1
+ARG PYTHON_VERSION=3.14.2
+ARG UV_VERSION=0.9.18
 ARG USERNAME=appuser
 ARG USER_ID=1000
 ARG GROUP_ID=1000
@@ -27,11 +27,6 @@ RUN set -ex \
     && \
     apt-get update \
     && \
-    apt-get -y upgrade \
-    && \
-    apt-get -y dist-upgrade \
-# Install libraries
-    && \
     apt-get install --no-install-recommends -y \
     make \
     build-essential \
@@ -40,8 +35,6 @@ RUN set -ex \
     libbz2-dev \
     libreadline-dev \
     libsqlite3-dev \
-    wget \
-    curl \
     llvm \
     libncurses5-dev \
     libncursesw5-dev \
