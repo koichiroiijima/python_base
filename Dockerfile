@@ -50,6 +50,7 @@ RUN set -ex \
     apt-get clean -y
 
 USER ${USERNAME}
+ENV USERNAME=${USERNAME}
 WORKDIR /home/${USERNAME}/opt/
 # Install Python using uv 
 RUN set -ex \
